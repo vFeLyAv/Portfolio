@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feliks · X-Ray</title>
+<meta name="description" content="Portfolio von Feliks (Felix) Kolomoiets, Regensburg.">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@500;700;900&family=Spline+Sans:wght@400;500;600&family=Spline+Sans+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="./style.css">
+<link rel="preload" as="image" href="/img/person.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 rx=%277%27 fill=%27%231c2026%27/%3E%3Crect x=%279%27 y=%277%27 width=%2714%27 height=%2718%27 fill=%27none%27 stroke=%27%23bfefff%27 stroke-width=%272%27/%3E%3Crect x=%279%27 y=%274%27 width=%278%27 height=%273%27 fill=%27%23ff86b0%27/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#ueber">Zum Inhalt springen</a>
+
+<header class="bar" id="bar">
+  <a class="bar__name" href="#top">Feliks Kolomoiets</a>
+  <nav class="bar__nav" id="nav" aria-label="Abschnitte">
+    <a href="#ueber">Über mich</a>
+    <a href="#projekte">Projekte</a>
+    <a href="#zertifikate">Zertifikate</a>
+    <a href="#lebenslauf">Lebenslauf</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <button class="pdf" type="button" data-pdf>Lebenslauf (PDF)</button>
+  <button class="bar__menu" type="button" id="menuBtn" aria-expanded="false" aria-controls="nav">Menü</button>
+</header>
+
+<main>
+  <section class="hero" id="top" aria-label="Röntgenbild von Feliks mit Anmerkungen">
+    <div class="hero__type" aria-hidden="true">
+      <span class="hero__first" id="first">Feliks</span>
+    </div>
+    <canvas class="hero__canvas" id="scan" aria-hidden="true"></canvas>
+    <svg class="hero__lines" id="lines" aria-hidden="true"></svg>
+    <div class="hero__marks" id="marks"></div>
+    <div class="hero__readout" id="readout" aria-hidden="true"></div>
+    <h1 class="hero__name">
+      <span class="sr-only">Feliks Kolomoiets</span>
+      <span class="hero__last" aria-hidden="true">Kolomoiets</span>
+    </h1>
+  </section>
+
+  <section class="sheet" id="ueber" aria-labelledby="h-ueber">
+    <div class="sheet__head">
+      <h2 id="h-ueber">Über mich</h2>
+    </div>
+    <div class="about">
+      <div class="about__text" id="aboutText"></div>
+      <dl class="about__facts" id="aboutFacts"></dl>
+    </div>
+  </section>
+
+  <section class="sheet" id="projekte" aria-labelledby="h-projekte">
+    <div class="sheet__head">
+      <h2 id="h-projekte">Projekte</h2>
+    </div>
+    <div class="projects" id="projectList"></div>
+  </section>
+
+  <section class="sheet" id="zertifikate" aria-labelledby="h-zert">
+    <div class="sheet__head">
+      <h2 id="h-zert">Zertifikate</h2>
+      <p class="sheet__lede">Diese Kurse mache ich gerade. Sobald ein Zertifikat da ist, steht es hier.</p>
+    </div>
+    <ul class="certs" id="certList"></ul>
+  </section>
+
+  <section class="sheet" id="lebenslauf" aria-labelledby="h-cv">
+    <div class="sheet__head sheet__head--row">
+      <h2 id="h-cv">Lebenslauf</h2>
+      <button class="pdf pdf--solid" type="button" data-pdf>Lebenslauf (PDF)</button>
+    </div>
+    <div class="cv" id="cv"></div>
+  </section>
+
+  <section class="sheet sheet--last" id="kontakt" aria-labelledby="h-kontakt">
+    <div class="sheet__head">
+      <h2 id="h-kontakt">Kontakt</h2>
+    </div>
+    <div class="contact">
+      <p class="contact__text">Meine E-Mail-Adresse kommt bald hierher. Bis dahin steht alles Wichtige im Lebenslauf.</p>
+      <div class="contact__actions">
+        <button class="pdf pdf--solid" type="button" data-pdf>Lebenslauf (PDF)</button>
+        <span class="contact__mail">E-Mail folgt</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <span id="footName"></span>
+  <span id="footPlace"></span>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>

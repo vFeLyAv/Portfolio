@@ -1,0 +1,137 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feliks Kolomoiets · Portfolio</title>
+<meta name="description" content="Portfolio und Lebenslauf von Feliks (Felix) Kolomoiets aus Regensburg.">
+<meta name="theme-color" content="#F2ECE3">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=EB+Garamond:ital,wght@0,400..700;1,400..700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap">
+<link rel="stylesheet" href="./style.css">
+<link rel="preload" as="image" href="/img/hero-dsc05325-person.webp">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 32 32%27%3E%3Crect width=%2732%27 height=%2732%27 fill=%27%23F2ECE3%27/%3E%3Cpath d=%27M10 6h12v4h-1.5c-.4-1.6-1.4-2-3-2H15v7h2.5c1 0 1.4-.6 1.6-2H20v6h-.9c-.2-1.4-.6-2-1.6-2H15v8h2.5v1H9v-1h2V8H9V6z%27 fill=%27%23121010%27/%3E%3Ccircle cx=%2724%27 cy=%2724%27 r=%275%27 fill=%27%23EC8778%27/%3E%3C/svg%3E">
+</head>
+<body>
+<a class="skip" href="#ueber">Zum Inhalt springen</a>
+
+<main>
+  <!-- Held wie ein Plakat: hinten Blumen, dann die Buchstaben mit Felix in der Lücke, vorne der Strauß -->
+  <section class="hero" id="top" aria-labelledby="heroTitle">
+    <h1 class="sr-only" id="heroTitle">Feliks (Felix) Kolomoiets</h1>
+    <canvas class="hero__cv hero__cv--back" aria-hidden="true"></canvas>
+    <div class="hero__name" id="heroName" aria-hidden="true"></div>
+    <img class="felix" id="felix" src="/img/hero-dsc05325-person.webp" alt="" decoding="async" fetchpriority="high">
+    <canvas class="hero__cv hero__cv--front" aria-hidden="true"></canvas>
+
+    <div class="print print--tl" aria-hidden="true">
+      <p class="caps caps--lg">Feliks<br>Kolomoiets</p>
+      <span class="dash"></span>
+    </div>
+    <div class="print print--tr">
+      <div class="langs" role="group" aria-label="Sprache">
+        <button type="button" data-lang="de" aria-pressed="true" lang="de">DE</button>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+        <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
+      </div>
+      <span class="dash"></span>
+    </div>
+    <div class="print print--date" aria-hidden="true">
+      <span class="caps" data-ui="month">Nov</span>
+      <span class="num">20</span>
+      <span class="slash"></span>
+      <span class="num">26</span>
+      <em id="handle">@areyoufelya</em>
+    </div>
+    <p class="print print--tag caps" data-ui="tagline" aria-hidden="true">Portfolio &amp; Lebenslauf</p>
+    <div class="print print--bl" aria-hidden="true">
+      <p class="caps" id="region">Regensburg<br>Bayern</p>
+      <span class="dash"></span>
+    </div>
+    <div class="print print--br" aria-hidden="true">
+      <p class="caps" data-ui="scroll">Scrollen</p>
+      <span class="cue"></span>
+    </div>
+  </section>
+
+  <section class="sec sec--about" id="ueber" aria-labelledby="h-about">
+    <header class="sec__head">
+      <canvas class="sec__flora sec__flora--back" aria-hidden="true"></canvas>
+      <h2 class="tall" id="h-about" data-title="about">Über mich</h2>
+      <canvas class="sec__flora sec__flora--front" aria-hidden="true"></canvas>
+    </header>
+    <div class="about">
+      <figure class="about__photo">
+        <div class="frame"><img id="portrait" src="/img/sony-dsc02437-photo.jpg" alt="" width="1800" height="1200" loading="lazy"></div>
+        <canvas class="portrait-flora" id="portraitFlora" aria-hidden="true"></canvas>
+      </figure>
+      <div class="about__text" id="aboutText"></div>
+      <div class="facts">
+        <h3 class="facts__h" data-ui="facts">Ein paar Dinge über mich</h3>
+        <ul class="facts__list" id="factsList"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--projects" id="projekte" aria-labelledby="h-projects">
+    <header class="sec__head">
+      <canvas class="sec__flora sec__flora--back" aria-hidden="true"></canvas>
+      <h2 class="tall" id="h-projects" data-title="projects">Projekte</h2>
+      <canvas class="sec__flora sec__flora--front" aria-hidden="true"></canvas>
+    </header>
+    <div class="projects" id="projects"></div>
+  </section>
+
+  <section class="sec sec--certs" id="zertifikate" aria-labelledby="h-certs">
+    <header class="sec__head">
+      <canvas class="sec__flora sec__flora--back" aria-hidden="true"></canvas>
+      <h2 class="tall" id="h-certs" data-title="certs">Zertifikate</h2>
+      <canvas class="sec__flora sec__flora--front" aria-hidden="true"></canvas>
+    </header>
+    <div class="certs" id="certs"></div>
+  </section>
+
+  <section class="sec sec--cv" id="lebenslauf" aria-labelledby="h-cv">
+    <header class="sec__head">
+      <canvas class="sec__flora sec__flora--back" aria-hidden="true"></canvas>
+      <h2 class="tall" id="h-cv" data-title="cv">Lebenslauf</h2>
+      <canvas class="sec__flora sec__flora--front" aria-hidden="true"></canvas>
+    </header>
+    <div class="cv" id="cv"></div>
+  </section>
+
+  <section class="sec sec--contact" id="kontakt" aria-labelledby="h-contact">
+    <header class="sec__head">
+      <canvas class="sec__flora sec__flora--back" aria-hidden="true"></canvas>
+      <h2 class="tall" id="h-contact" data-title="contact">Kontakt</h2>
+      <canvas class="sec__flora sec__flora--front" aria-hidden="true"></canvas>
+    </header>
+    <div class="contact">
+      <p class="contact__lead" data-ui="lead">Ich freue mich über Ihre Nachricht.</p>
+      <div class="contact__row">
+        <span class="caps" data-ui="email">E-Mail</span>
+        <a class="contact__mail" id="mail" href="mailto:felikskolomoiets@gmail.com">felikskolomoiets@gmail.com</a>
+        <button class="btn" type="button" id="copy">E-Mail kopieren</button>
+        <span class="sr-only" role="status" id="copyStatus"></span>
+      </div>
+      <div class="contact__row">
+        <span class="caps" data-ui="insta">Instagram</span>
+        <a class="contact__insta" id="insta" href="https://www.instagram.com/areyoufelya/" target="_blank" rel="noopener">@areyoufelya</a>
+      </div>
+    </div>
+    <footer class="foot">
+      <p class="caps" data-ui="foot">Feliks Kolomoiets, Regensburg 2026</p>
+      <div class="langs" role="group" aria-label="Sprache">
+        <button type="button" data-lang="de" aria-pressed="true" lang="de">DE</button>
+        <button type="button" data-lang="en" aria-pressed="false" lang="en">EN</button>
+        <button type="button" data-lang="ru" aria-pressed="false" lang="ru">RU</button>
+      </div>
+    </footer>
+  </section>
+</main>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>

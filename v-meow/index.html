@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feliks Kolomoiets</title>
+  <meta name="description" content="Feliks Kolomoiets, Regensburg: Projekte, Zertifikate, Lebenslauf und Kontakt.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Dela+Gothic+One&family=Jost:wght@300&family=Onest:wght@400;500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/shared/base.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preload" as="image" href="/img/sony-dsc01805-person.webp">
+</head>
+<body>
+  <!-- wiederverwendbare Formen: vierzackiger Funkelstern und Blobs wie auf dem Poster -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="spark" viewBox="0 0 100 100"><path d="M50 0 C53 31 68 47 100 50 C68 53 53 69 50 100 C47 69 32 53 0 50 C32 47 47 31 50 0Z"/></symbol>
+    <symbol id="blob-a" viewBox="0 0 600 500"><path d="M118 62 C196 -6 318 22 356 72 C424 18 566 46 582 168 C596 262 536 302 556 382 C576 470 444 508 334 470 C232 438 150 500 80 430 C12 362 72 300 40 230 C10 152 50 112 118 62Z"/></symbol>
+    <symbol id="blob-b" viewBox="0 0 100 130"><path d="M52 2 C84 6 98 40 96 74 C94 108 74 128 46 126 C16 124 2 96 4 62 C6 28 22 0 52 2Z"/></symbol>
+  </svg>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="pops" aria-hidden="true"></div>
+
+  <header class="hero" id="top">
+    <div class="outline-rows" aria-hidden="true" data-word="felix"></div>
+
+    <svg class="blob blob-main" aria-hidden="true" focusable="false"><use href="#blob-a"/></svg>
+    <svg class="blob blob-dot blob-dot-1" aria-hidden="true" focusable="false"><use href="#blob-b"/></svg>
+    <svg class="blob blob-dot blob-dot-2" aria-hidden="true" focusable="false"><use href="#blob-b"/></svg>
+    <svg class="blob blob-dot blob-dot-3" aria-hidden="true" focusable="false"><use href="#blob-b"/></svg>
+
+    <h1 class="wordmark">
+      <span class="sr-only">Feliks Kolomoiets</span>
+      <span class="letters" aria-hidden="true"></span>
+    </h1>
+
+    <button class="sticker sticker-hero" type="button" data-i18n-label="stickerHero"></button>
+
+    <svg class="spark spark-1" aria-hidden="true" focusable="false"><use href="#spark"/></svg>
+    <svg class="spark spark-2" aria-hidden="true" focusable="false"><use href="#spark"/></svg>
+    <svg class="spark spark-3" aria-hidden="true" focusable="false"><use href="#spark"/></svg>
+
+    <div class="smallprint smallprint-left">
+      <p class="sp-date" data-text="caption"></p>
+      <p class="sp-name">Feliks Kolomoiets</p>
+      <p class="sp-line">@areyoufelya</p>
+    </div>
+    <div class="smallprint smallprint-right lang" role="group" data-i18n-label="langGroup"></div>
+  </header>
+
+  <main>
+    <section class="sec sec-about" id="ueber-mich" aria-labelledby="h-about">
+      <div class="wrap about-grid">
+        <div class="about-text">
+          <h2 class="bouncy" id="h-about" data-text="about"></h2>
+          <div class="about-body" data-slot="about"></div>
+        </div>
+        <div class="about-art">
+          <svg class="blob blob-about" aria-hidden="true" focusable="false"><use href="#blob-a"/></svg>
+          <button class="sticker sticker-selfie" type="button" data-i18n-label="stickerSelfie"></button>
+          <svg class="spark spark-a1" aria-hidden="true" focusable="false"><use href="#spark"/></svg>
+          <svg class="spark spark-a2" aria-hidden="true" focusable="false"><use href="#spark"/></svg>
+        </div>
+      </div>
+      <div class="wrap">
+        <h3 class="facts-title" data-text="facts"></h3>
+        <ul class="facts" data-slot="facts"></ul>
+      </div>
+    </section>
+
+    <section class="sec sec-projects" id="projekte" aria-labelledby="h-projects">
+      <div class="wrap">
+        <h2 class="bouncy" id="h-projects" data-text="projects"></h2>
+        <div class="projects" data-slot="projects"></div>
+      </div>
+    </section>
+
+    <section class="sec sec-certs" id="zertifikate" aria-labelledby="h-certs">
+      <div class="wrap">
+        <h2 class="bouncy" id="h-certs" data-text="certs"></h2>
+        <div class="certs" data-slot="certs"></div>
+      </div>
+    </section>
+
+    <section class="sec sec-cv" id="lebenslauf" aria-labelledby="h-cv">
+      <div class="wrap">
+        <h2 class="bouncy" id="h-cv" data-text="cv"></h2>
+        <div class="cv" data-slot="cv"></div>
+      </div>
+    </section>
+
+    <section class="sec sec-contact" id="kontakt" aria-labelledby="h-contact">
+      <div class="outline-rows outline-rows-contact" aria-hidden="true" data-word="felix"></div>
+      <div class="wrap contact-grid">
+        <div class="contact-text">
+          <h2 class="bouncy" id="h-contact" data-text="contact"></h2>
+          <div data-slot="contact"></div>
+        </div>
+        <div class="contact-art">
+          <svg class="blob blob-contact" aria-hidden="true" focusable="false"><use href="#blob-b"/></svg>
+          <button class="sticker sticker-walk" type="button" data-i18n-label="stickerWalk"></button>
+          <svg class="spark spark-c1" aria-hidden="true" focusable="false"><use href="#spark"/></svg>
+          <svg class="spark spark-c2" aria-hidden="true" focusable="false"><use href="#spark"/></svg>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot">
+    <div class="smallprint smallprint-left">
+      <p class="sp-date" data-text="caption"></p>
+      <p class="sp-name">Feliks Kolomoiets</p>
+      <p class="sp-line"><a href="#top" data-text="toTop"></a></p>
+    </div>
+    <div class="smallprint smallprint-right lang" role="group" data-i18n-label="langGroup"></div>
+  </footer>
+
+  <div class="toast" role="status" aria-live="polite"></div>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

@@ -1,0 +1,165 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feliks Kolomoiets</title>
+<meta name="description" content="Portfolio und Lebenslauf von Feliks Kolomoiets, Regensburg.">
+<meta name="theme-color" content="#3563e8">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caprasimo&family=Golos+Text:wght@400;500;600;700;800&family=Merriweather:wght@900&family=Schibsted+Grotesk:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<!-- SVG-Baustein: Wäscheklammer -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <linearGradient id="wood" x1="0" x2="1" y1="0" y2="0">
+      <stop offset="0" stop-color="#e9bd86"/>
+      <stop offset=".55" stop-color="#cf955c"/>
+      <stop offset="1" stop-color="#a9703f"/>
+    </linearGradient>
+  </defs>
+  <symbol id="peg" viewBox="0 0 22 58">
+    <rect x="2" y="0" width="8.5" height="58" rx="3.5" fill="url(#wood)"/>
+    <rect x="11.5" y="0" width="8.5" height="58" rx="3.5" fill="url(#wood)"/>
+    <path d="M4 6v44M14 6v44" stroke="#8d5a2e" stroke-opacity=".22" stroke-width=".8" fill="none"/>
+    <rect x="1" y="25" width="20" height="6" rx="2.5" fill="#b9c0d1"/>
+    <rect x="1" y="25" width="20" height="2" rx="1" fill="#eef1f8"/>
+  </symbol>
+</svg>
+
+<a class="skip" href="#main" data-t="skip">Zum Inhalt springen</a>
+
+<!-- fester Himmel hinter allem: Frühling (Grundfarbe) → Sommer → Herbst → Dämmerung → Winternacht -->
+<div class="sky" aria-hidden="true">
+  <div class="sky__layer sky__summer" id="skySummer"><div class="sky__rays" id="skyRays"></div></div>
+  <div class="sky__layer sky__autumn" id="skyAutumn"></div>
+  <div class="sky__layer sky__dusk" id="skyDusk"></div>
+  <div class="sky__layer sky__night" id="skyNight"><canvas class="sky__stars" id="stars"></canvas></div>
+  <div class="sky__clouds" id="skyClouds"></div>
+</div>
+
+<!-- Name oben links: nur Text, scrollt mit dem Hero weg (keine Leiste, alles wird auf der Seite selbst bedient) -->
+<p class="brand" aria-hidden="true">Feliks Kolomoiets</p>
+
+<main id="main" tabindex="-1">
+  <!-- Hero: Felix auf einer Wolke, der Name liegt hinter ihm -->
+  <section class="hero" id="top" aria-labelledby="bigName">
+    <div class="stage" id="stage">
+      <div class="layer" id="layerFar" aria-hidden="true"></div>
+      <h1 class="name" id="bigName">
+        <span class="sr-only">Feliks Kolomoiets</span>
+        <button class="name__btn" id="nameBtn" type="button" aria-pressed="true" aria-label="Name so zeigen, wie er gesprochen wird: Felix" data-t-label="nameBtn">
+          <span class="name__word" aria-hidden="true"><span class="lt" style="--i:0"><span class="g">F</span></span><span class="lt" style="--i:1"><span class="g">e</span></span><span class="lt" style="--i:2"><span class="g">l</span></span><span class="lt" style="--i:3"><span class="g">i</span></span><span class="lt lt--k" style="--i:4"><span class="g g--k">k</span><span class="g g--x">x</span></span><span class="lt lt--s" style="--i:5"><span class="g g--s">s</span></span></span>
+        </button>
+      </h1>
+      <div class="layer" id="layerBack" aria-hidden="true"></div>
+      <!-- Foto kommt aus photos.js -->
+      <div class="person" id="person"></div>
+      <div class="layer" id="layerFront" aria-hidden="true"></div>
+      <!-- Leine mit drei Papier-Anhängern: Sprache wählen («Русский» links, „Deutsch“ und „English“ rechts); der aktive ist zitronengelb -->
+      <div class="line" id="heroLine">
+        <svg class="line__svg" viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true"><path id="heroLinePath" d=""/></svg>
+        <div class="hangs" role="group" aria-label="Sprache" data-t-label="langGroup">
+          <div class="hang" data-at=".08">
+            <svg class="peg" aria-hidden="true"><use href="#peg"/></svg>
+            <button class="tag tag--lang" type="button" data-lang="ru" lang="ru" aria-pressed="false"><span class="tag__hole" aria-hidden="true"></span><span class="tag__big">Русский</span></button>
+          </div>
+          <div class="hang" data-at=".75">
+            <svg class="peg" aria-hidden="true"><use href="#peg"/></svg>
+            <button class="tag tag--lang" type="button" data-lang="de" lang="de" aria-pressed="true"><span class="tag__hole" aria-hidden="true"></span><span class="tag__big">Deutsch</span></button>
+          </div>
+          <div class="hang" data-at=".86">
+            <svg class="peg" aria-hidden="true"><use href="#peg"/></svg>
+            <button class="tag tag--lang" type="button" data-lang="en" lang="en" aria-pressed="false"><span class="tag__hole" aria-hidden="true"></span><span class="tag__big">English</span></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Wolkenbank direkt unter dem Hero: man steigt durch sie hindurch -->
+  <div class="bank" id="bank" aria-hidden="true"></div>
+  <div class="fog" id="fog" aria-hidden="true"><div class="fog__veil" id="fogVeil"></div></div>
+
+  <section class="sec" id="ueber" aria-labelledby="h-ueber">
+    <h2 class="sec__title" id="h-ueber" data-t="ueber">Über mich</h2>
+    <div class="glass panel about" id="aboutPanel"></div>
+    <!-- Koffer-Plattenspieler auf einer Wolke (wird in die rechte Spalte von „Über mich“ gesetzt):
+         Platte anklicken = Musik, festhalten und drehen = scratchen; der Tonarm legt sich beim Abspielen auf -->
+    <div class="spin" id="spin">
+      <div class="spin__cloud" id="spinCloud" aria-hidden="true"></div>
+      <div class="deck deck--case">
+        <canvas class="deck__canvas" aria-hidden="true"></canvas>
+        <button class="deck__record" type="button" aria-pressed="false" data-t-label="deck"
+          aria-label="Schallplatte: Musik an oder aus. Ziehen: scratchen. Pfeiltasten: vor- und zurückdrehen."></button>
+        <button class="deck__start deck__knob" type="button" aria-pressed="false" aria-label="Musik" data-t-label="music"></button>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--proj" id="projekte" aria-labelledby="h-projekte">
+    <h2 class="sec__title" id="h-projekte" data-t="projekte">Projekte</h2>
+    <div class="proj-wrap">
+      <div class="glass panel projects" id="projectsPanel"></div>
+      <!-- Foto kommt aus photos.js -->
+      <div class="stand" id="stand" aria-hidden="true">
+        <div class="stand__cloud" id="standCloud"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="zertifikate" aria-labelledby="h-zert">
+    <h2 class="sec__title" id="h-zert" data-t="zert">Zertifikate</h2>
+    <div class="glass panel certs">
+      <p class="certs__lead" id="certsLead">Gerade in Arbeit. Sobald ein Zertifikat fertig ist, kommt es hierher.</p>
+      <div class="lines" id="certLines"></div>
+    </div>
+  </section>
+
+  <section class="sec" id="lebenslauf" aria-labelledby="h-cv">
+    <h2 class="sec__title" id="h-cv" data-t="cv">Lebenslauf</h2>
+    <div class="glass panel cv" id="cvPanel"></div>
+  </section>
+
+  <!-- Winternacht: Kontakt als Postkarte (Schreibseite vorne, Foto auf der Rückseite) -->
+  <section class="sec sec--night" id="kontakt" aria-labelledby="h-kontakt">
+    <h2 class="sec__title" id="h-kontakt" data-t="kontakt">Kontakt</h2>
+    <div class="postcard" id="postcard"></div>
+  </section>
+
+  <div class="floor" id="floor" aria-hidden="true"></div>
+</main>
+
+<footer class="foot">
+  <p>Feliks Kolomoiets, Regensburg 2026</p>
+</footer>
+
+<div class="toast glass" id="toast" role="status" aria-live="polite"></div>
+
+<!-- Zertifikat groß: fliegt von der Leine in die Mitte, lässt sich umdrehen -->
+<div class="lb" id="lb" hidden>
+  <div class="lb__backdrop" id="lbBackdrop"></div>
+  <div class="lb__dialog" id="lbDialog" role="dialog" aria-modal="true" aria-labelledby="lbTitle">
+    <div class="lb__fly" id="lbFly">
+      <div class="lb__tilt" id="lbTilt">
+        <div class="lb__card" id="lbCard">
+          <div class="lb__face lb__front"><img id="lbImg" src="" alt="" width="1584" height="1028"></div>
+          <div class="lb__face lb__back" id="lbBack"></div>
+        </div>
+      </div>
+    </div>
+    <div class="lb__bar">
+      <button class="lb__btn" type="button" id="lbFlip" aria-pressed="false" data-t="lbFlip">Umdrehen</button>
+      <button class="lb__btn lb__btn--close" type="button" id="lbClose" data-t="lbClose">Schließen</button>
+    </div>
+  </div>
+</div>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>

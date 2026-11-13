@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feliks Kolomoiets – Portfolio und Lebenslauf</title>
+  <meta name="description" content="Portfolio und Lebenslauf von Feliks Kolomoiets, Regensburg.">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;700&family=Onest:wght@400;500;600;700&family=Permanent+Marker&display=swap">
+  <link rel="preload" as="image" href="/img/hero-img_2183-person.webp">
+  <link rel="stylesheet" href="/shared/base.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <a class="skip" href="#main">Zum Inhalt springen</a>
+
+  <div class="langs" role="group" aria-label="Sprache wählen">
+    <button type="button" data-lang="de" aria-pressed="true" lang="de">de</button>
+    <button type="button" data-lang="en" aria-pressed="false" lang="en">en</button>
+    <button type="button" data-lang="ru" aria-pressed="false" lang="ru">ru</button>
+  </div>
+
+  <header class="hero" id="top">
+    <h1 class="sr-only">Feliks Kolomoiets</h1>
+    <canvas class="face" role="img" tabindex="0" aria-label=""></canvas>
+    <svg class="scribbles" aria-hidden="true"></svg>
+  </header>
+
+  <main id="main" tabindex="-1"></main>
+
+  <footer class="foot"></footer>
+
+  <p class="sr-only" role="status" aria-live="polite" id="status"></p>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

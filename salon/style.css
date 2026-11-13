@@ -1,0 +1,1052 @@
+/* Salon (Hauptseite, aus v-artheart) — "Art & Heart"-Poster als Museumssalon.
+   Wand: Ochsenblut-Damast, dunkle Holzvertäfelung, vergoldete Rahmen, weiße schmale Groteske. */
+
+:root {
+  --oxblood: #581719;
+  --oxblood-deep: #2a0a0b;
+  --bottle: #17332b;
+  --ink-blue: #1a2238;
+  --walnut: #2a160b;
+  --gold: #d4a94f;
+  --gold-hi: #f3dc93;
+  --ivory: #fbf5ea;
+  --cream: #f1e7d3;
+  --ink: #20150e;
+  --text-on-dark: #f3eadb;
+  --muted-on-dark: #e2d5bf;
+
+  --display: 'Oswald', 'Arial Narrow', sans-serif;
+  --serif: 'EB Garamond', Georgia, serif;
+  --script: 'Pinyon Script', 'Great Vibes', cursive;
+
+  color-scheme: dark;
+}
+html:lang(ru) { --script: 'Great Vibes', cursive; }
+
+html { overflow-x: clip; }
+html.is-zoomed { overflow: hidden; }
+body {
+  background: var(--oxblood) url(./damask.svg) 0 0 / 96px 150px;
+  color: var(--text-on-dark);
+  font: 400 1.2rem/1.6 var(--serif);
+  overflow-x: clip;
+}
+a { color: inherit; }
+:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 4px; }
+
+/* ---------------------------------------------------------------- Licht */
+/* Liegt über der Tapete, aber unter Bildern und Text: Text wird nie abgedunkelt. */
+.lighting { position: fixed; inset: 0; z-index: 1; pointer-events: none; overflow: hidden; }
+/* Licht und Goldstaub zeichnet effects.js in ein kleines Canvas (halbe Auflösung, weich hochskaliert) */
+.lighting .glow { position: absolute; inset: 0; width: 100%; height: 100%; }
+.lighting::after {
+  content: ''; position: absolute; inset: 0; opacity: .5;
+  background: url(./grain.svg);
+}
+
+/* ---------------------------------------------------------------- Räume */
+.room {
+  --wall: var(--oxblood);
+  position: relative;
+  background-color: var(--wall);
+  background-image:
+    linear-gradient(180deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 78%, rgba(0, 0, 0, .4)),
+    url(./damask.svg);
+  background-size: 100% 100%, 96px 150px;
+  transition: transform .8s cubic-bezier(.62, .02, .24, 1);
+}
+.room-projects { --wall: var(--bottle); }
+.room-certs { --wall: var(--ink-blue); }
+.room-cv {
+  --wall: var(--walnut);
+  background-image:
+    linear-gradient(180deg, rgba(0, 0, 0, .45), rgba(0, 0, 0, 0) 20%, rgba(0, 0, 0, 0) 80%, rgba(0, 0, 0, .5)),
+    repeating-linear-gradient(90deg, rgba(0, 0, 0, .55) 0 2px, rgba(255, 210, 150, .06) 2px 4px, transparent 4px 240px),
+    repeating-linear-gradient(90deg, #2c170b 0 7px, #321b0e 7px 10px, #27140a 10px 19px, #2e180c 19px 23px);
+  background-size: auto;
+}
+.room.zooming { z-index: 3; }
+
+.room-inner {
+  position: relative; z-index: 2;
+  max-width: 1240px; margin: 0 auto;
+  padding: clamp(84px, 13vh, 150px) clamp(16px, 4vw, 48px) clamp(84px, 13vh, 150px);
+}
+.room-head { margin-bottom: clamp(36px, 6vh, 72px); }
+.plaque {
+  display: inline-block; margin: 0;
+  font: 500 15px/1 var(--display); letter-spacing: .14em; text-transform: uppercase;
+  color: #2a1a08; padding: 9px 15px 8px;
+  background: linear-gradient(180deg, #f1da93, #b98d3c 52%, #e2c47c);
+  border-radius: 2px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), inset 0 -1px 0 rgba(0, 0, 0, .3), 0 3px 8px rgba(0, 0, 0, .5);
+}
+.room h2 {
+  margin: 28px 0 0;
+  font: 500 clamp(52px, 8vw, 128px)/.92 var(--display);
+  text-transform: uppercase; letter-spacing: .004em;
+  color: var(--ivory);
+  text-shadow: 0 0 22px rgba(255, 230, 190, .35);
+}
+.sub {
+  margin: clamp(56px, 9vh, 96px) 0 24px;
+  font: 500 clamp(30px, 3.4vw, 46px)/1 var(--display); text-transform: uppercase;
+  color: var(--ivory);
+}
+
+/* ---------------------------------------------------------------- Holzvertäfelung */
+.wainscot {
+  position: absolute; left: 0; right: 0; bottom: 0; height: 25%; z-index: 0;
+  background:
+    linear-gradient(180deg, #8a6430 0, #3a210c 4px, #6d4a1f 7px, #c79a4a 9px, #5a3812 12px, #1c0e05 18px, rgba(0, 0, 0, .55) 26px, transparent 60px),
+    linear-gradient(180deg, rgba(0, 0, 0, .05), rgba(0, 0, 0, .55)),
+    repeating-linear-gradient(90deg, #2a160b 0 7px, #301a0d 7px 10px, #24120a 10px 19px, #2d170c 19px 23px);
+}
+.wainscot::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 44px; bottom: 26px;
+  --pw: 260px;
+  border-top: 2px solid rgba(255, 214, 160, .09); border-bottom: 2px solid rgba(0, 0, 0, .55);
+  background: repeating-linear-gradient(90deg,
+    transparent 0 26px, rgba(0, 0, 0, .55) 26px 28px, rgba(255, 214, 160, .09) 28px 30px,
+    transparent 30px calc(var(--pw) - 30px),
+    rgba(255, 214, 160, .09) calc(var(--pw) - 30px) calc(var(--pw) - 28px), rgba(0, 0, 0, .55) calc(var(--pw) - 28px) calc(var(--pw) - 26px),
+    transparent calc(var(--pw) - 26px) var(--pw));
+}
+
+/* ---------------------------------------------------------------- Goldrahmen */
+.frame {
+  --fw: clamp(12px, 1.7vw, 30px);
+  position: relative; display: block; width: 100%;
+  padding: 0; margin: 0; cursor: zoom-in;
+  border: var(--fw) solid #a07a2c;
+  border-image: url(./frame.svg) 40 / var(--fw) round;
+  background: linear-gradient(135deg, #e3bd66, #9c7228 50%, #6a4a14);
+  box-shadow: 0 0 0 1px rgba(20, 10, 2, .7), 14px 26px 34px rgba(0, 0, 0, .55), 4px 8px 10px rgba(0, 0, 0, .45);
+  rotate: var(--rot, 0deg);
+  transition: filter .35s ease;
+}
+.frame .art { position: relative; display: block; aspect-ratio: var(--ratio, 3 / 4); overflow: hidden; background: #120905; }
+.frame .art::after { content: ''; position: absolute; inset: 0; box-shadow: inset 0 0 calc(var(--fw) * .7) rgba(0, 0, 0, .75); pointer-events: none; }
+.frame img, .frame video {
+  width: 100%; height: 100%; object-fit: cover;
+  filter: brightness(.86) saturate(.92) sepia(.08);
+  transition: filter .35s ease;
+}
+.frame-liner .art { box-sizing: content-box; padding: 7%; background: radial-gradient(ellipse at 50% 40%, #3a1a14, #160807 80%); }
+.frame-liner img { box-shadow: 0 3px 10px rgba(0, 0, 0, .6); }
+button.frame:hover :is(img, video), button.frame:focus-visible :is(img, video), .frame.is-near :is(img, video) { filter: brightness(1.04) saturate(1) sepia(0); }
+/* 3D-Porträt (portrait3d.js): WebGL-Canvas genau über dem Foto, gleiche Farbfilter wie das Foto, weich eingeblendet */
+.frame canvas.d3 {
+  position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none;
+  filter: brightness(.86) saturate(.92) sepia(.08); opacity: 0; transition: filter .35s ease, opacity .6s ease;
+}
+.frame canvas.d3.ready { opacity: 1; }
+button.frame:hover canvas.d3, button.frame:focus-visible canvas.d3, .frame.is-near canvas.d3 { filter: brightness(1.04) saturate(1) sepia(0); }
+.lite .frame canvas.d3 { filter: none; transition: opacity .6s ease; }
+
+/* Pendeluhr im Saal IV (uhr.js): hängt rechts neben der Überschrift, Pendel schwingt (1 s je Seite wie eine echte Uhr) */
+.room-cv .room-head { position: relative; }
+.wallclock {
+  position: absolute; right: clamp(0px, 3vw, 48px); top: -18px; width: clamp(100px, 10vw, 150px);
+  filter: drop-shadow(0 14px 16px rgba(0, 0, 0, .55)); pointer-events: none;
+}
+.wallclock svg { display: block; width: 100%; height: auto; overflow: visible; }
+.wallclock .uhr-pendel { transform-box: view-box; transform-origin: 100px 150px; rotate: -6deg; }
+.wallclock.swing .uhr-pendel { animation: uhr-pendel 1s ease-in-out infinite alternate; }
+@keyframes uhr-pendel { from { rotate: -6deg; } to { rotate: 6deg; } }
+@media (max-width: 700px) { .wallclock { position: relative; top: auto; right: auto; width: 86px; margin: 14px 0 0 auto; } }
+@media (prefers-reduced-motion: reduce) { .wallclock .uhr-pendel { animation: none !important; rotate: 0deg; } }
+.lite .wallclock { filter: none; }
+button.frame:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 6px; }
+.frame-empty { cursor: default; }
+.frame-empty .art {
+  display: grid; place-items: center; padding: 10%;
+  background: radial-gradient(ellipse at 50% 40%, #3b1418, #170607 75%);
+}
+.empty-note { font: 400 clamp(26px, 2.6vw, 38px)/1.15 var(--script); color: #e8cf8e; text-align: center; }
+
+/* Museumsetikett */
+.label {
+  display: inline-flex; flex-direction: column; gap: 1px;
+  margin: 16px 0 0; padding: 8px 12px 9px;
+  background: var(--cream); color: var(--ink);
+  font: 400 14px/1.3 var(--serif);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .45);
+  max-width: 100%;
+}
+.label b { font: 500 15px/1.2 var(--display); letter-spacing: .01em; }
+.label span { font-style: italic; color: #4a3424; }
+
+/* ---------------------------------------------------------------- Foyer */
+/* Die Salonwand ist als Bühne im Format 16:9 entworfen und wächst oder schrumpft als Ganzes mit dem Bildschirm.
+   --u = 1 % der Bühnenbreite. Auf schmalen Bildschirmen bestimmt die Breite den Maßstab, auf breiten (Browserfenster
+   mit Leisten, 21:9-Monitor) die Höhe – so behalten Rahmen und Etiketten immer denselben Abstand zueinander.
+   Jedes Bild: --x / --y in Prozent der Bühne, Breite --w in --u. Hochformat hat weiter unten eine eigene Hängung. */
+.foyer {
+  --fh: 100vh;                                  /* Höhe des Foyers = sichtbare Bildschirmhöhe */
+  --u: min(1vw, calc(var(--fh) * .017778));     /* 1,7778 % der Höhe = 1 % der Breite bei 16:9 */
+  --walk: 0;
+  height: var(--fh); min-height: 340px;
+  overflow: hidden;
+}
+@supports (height: 100svh) { .foyer { --fh: 100svh; } }   /* Handy: Höhe ohne die Adressleiste */
+/* sehr breite Bildschirme: die Bühne wird höchstens 18 % breiter als 16:9 und steht dann mittig an der Wand */
+.salon { position: absolute; inset: 0; z-index: 2; margin-inline: auto; max-width: calc(var(--u) * 118); }
+.salon .exhibit {
+  position: absolute; left: var(--x); top: var(--y); width: calc(var(--u) * var(--w));
+  translate: calc(var(--walk) * var(--d, .5) * var(--u) * -14) calc(var(--walk) * var(--d, .5) * var(--fh) * .08);
+}
+/* Rahmenbreite: bei 1920 px Bühne genau 30 px. Browser runden Rahmen auf ganze Pixel ab, darum der kleine Zuschlag. */
+.salon .frame { --fw: calc(var(--u) * 1.5625 + .02px); }
+/* Etiketten wachsen mit der Bühne (bei 1920 px Breite: 14 px Schrift) */
+.salon .label {
+  position: absolute; top: 100%; left: 50%; translate: -50% 0; width: max-content; max-width: calc(var(--u) * 22);
+  margin-top: 1.14em; padding: .57em .86em .64em; font-size: calc(var(--u) * .7292);
+}
+.salon .label b { font-size: 1.07em; }
+.salon .ex-suit .label { top: 0; left: auto; right: 100%; translate: 0 0; margin: 0 1.6em 0 0; }   /* oben links neben dem Mittelbild */
+.salon .ex-depth .label { left: 0; translate: 0 0; }
+
+/* Hängung im Querformat (Salonstil, leicht schief) */
+.salon .ex-suit { --x: 50%; --y: 7%; --ws: min(29vw, calc(var(--fh) * .5)); --d: .15; width: var(--ws); margin-left: calc(var(--ws) / -2); }
+.salon .ex-suit .frame { --fw: calc(var(--u) * 2.1875 + .02px); }
+.salon .ex-flipper { --x: 3%; --y: 9%; --w: 13.5; --rot: -8deg; --d: .9; }
+.salon .ex-balloons { --x: 2%; --y: 47%; --w: 12.5; --rot: 5deg; --d: 1; }   /* Etikett darunter: dort stand früher die Unterschrift */
+.salon .ex-cert1 { --x: 18.5%; --y: 48%; --w: 13; --rot: -3deg; --d: .55; }
+.salon .ex-bunprise { --x: 72%; --y: 7%; --w: 23; --rot: 7deg; --d: .8; }
+.salon .ex-cert2 { --x: 68.5%; --y: 44%; --w: 11.5; --rot: 3deg; --d: .5; }
+.salon .ex-render { --x: 82%; --y: 41%; --w: 16; --rot: -6deg; --d: 1; }
+.salon .ex-depth { --x: 18%; --y: 6%; --w: 9; --rot: 3deg; --d: .6; }
+.salon .ex-depth .frame, .salon .ex-cert1 .frame, .salon .ex-cert2 .frame { --fw: calc(var(--u) * 1.0417 + .02px); }
+.salon .ex-cert1 .label, .salon .ex-cert2 .label, .salon .ex-depth .label { max-width: calc(var(--u) * 16); }
+
+/* Bühne zu klein zum Lesen (Laptop, kleines Fenster): Die Etiketten stören nur – sie erscheinen in lesbarer Größe,
+   sobald man mit der Maus über ein Bild fährt oder es mit der Tab-Taste erreicht. */
+@media (max-width: 1579px), (max-height: 888px) {
+  .salon .label {
+    font-size: 14px; max-width: min(260px, 60vw); z-index: 2; pointer-events: none;
+    opacity: 0; visibility: hidden; transition: opacity .2s ease, visibility .2s;
+  }
+  .salon .exhibit:hover, .salon .exhibit:focus-within { z-index: 3; }
+  .salon .exhibit:hover .label, .salon .exhibit:focus-within .label { opacity: 1; visibility: visible; }
+  /* Bilder am Rand: Etikett bündig mit dem Rahmen, damit es nicht aus dem Bildschirm ragt */
+  .salon .ex-flipper .label, .salon .ex-balloons .label { left: 0; translate: 0 0; }
+  .salon .ex-bunprise .label, .salon .ex-render .label { left: auto; right: 0; translate: 0 0; }
+}
+
+.headline {
+  position: absolute; z-index: 3; left: 50%; top: 41%; translate: -50% 0; margin: 0;   /* unter dem Gesicht im Mittelbild */
+  text-align: center; color: #fffaf1;
+  font-family: var(--display); font-weight: 500; line-height: .9; letter-spacing: .004em;
+  filter: drop-shadow(0 0 12px rgba(255, 238, 205, .55)) drop-shadow(0 0 44px rgba(255, 196, 120, .4));
+}
+.hl-1 { position: relative; display: block; white-space: nowrap; font-size: clamp(96px, min(12.5vw, calc(var(--fh) * .21)), 520px); }
+.hl-2 { display: block; white-space: nowrap; font-size: 100px; margin-top: .04em; }
+.hl-ks, .hl-x { display: inline-block; white-space: nowrap; }
+.hl-x { width: 0; opacity: 0; }
+/* Start-Zustand (nur mit JS, ohne reduzierte Bewegung): FELIX. Ohne JS bleibt FELIKS. */
+.hl-felix .hl-ks { width: 0; opacity: 0; }
+.hl-felix .hl-x { width: auto; opacity: 1; }
+.hl-probe { position: absolute; left: 0; top: 0; visibility: hidden; white-space: nowrap; }
+
+.ghost {
+  position: absolute; z-index: 4; pointer-events: none;
+  left: 47%; bottom: -18%; height: 84%; width: auto; max-width: none;   /* −18 %: etwas tiefer, Kopf nicht mehr so hoch (Felix 12.11.) */
+  translate: -50% calc(var(--walk) * var(--fh) * .05);
+  opacity: calc(.95 - var(--walk) * .7);
+  mix-blend-mode: screen;
+  filter: blur(3px) contrast(1.9) brightness(1.32) sepia(1) saturate(1.4) hue-rotate(-4deg);
+  /* Das Bild ragt unten aus dem Foyer: Es muss sich OBERHALB der Kante ganz auflösen (78 % des Bildes ≈ 93 % des Foyers),
+     sonst schneidet die Unterkante des Foyers den Schatten als harte Linie ab. Gleiche Werte in _tools/ghost-bake.py. */
+  -webkit-mask-image: linear-gradient(180deg, #000 50%, transparent 78%);
+          mask-image: linear-gradient(180deg, #000 50%, transparent 78%);
+}
+.glare {
+  position: absolute; inset: 0; z-index: 5; pointer-events: none; mix-blend-mode: screen;
+  /* ohne den Lichtkegel aus der Ecke oben rechts: er überstrahlte das Bunprise-Bild gelblich (Felix, 11.11.2026) */
+  background:
+    radial-gradient(ellipse 30% 34% at 50% 42%, rgba(255, 214, 160, .14), transparent 75%),
+    radial-gradient(ellipse 70% 40% at 50% 112%, rgba(255, 190, 110, .18), transparent 70%);
+}
+.glare i { position: absolute; border-radius: 50%; background: rgba(255, 214, 150, .16); filter: blur(3px); }
+.glare i:nth-child(1) { width: 70px; height: 70px; left: 7%; bottom: 7%; }
+.glare i:nth-child(2) { width: 34px; height: 34px; left: 33%; bottom: 14%; background: rgba(255, 230, 180, .12); }
+.glare i:nth-child(3) { width: 90px; height: 90px; right: 26%; bottom: -2%; }
+.glare i:nth-child(4) { width: 24px; height: 24px; right: 31%; bottom: 33%; }
+.glare i:nth-child(5) { width: 46px; height: 46px; left: 58%; bottom: 4%; background: rgba(255, 230, 180, .1); }
+
+
+.admission {
+  position: absolute; z-index: 6; right: clamp(16px, 3vw, 56px); bottom: clamp(24px, 4vh, 48px);
+  display: grid; justify-items: end; text-align: right;
+}
+
+/* Tickets = Sprachwahl */
+.tickets { display: flex; gap: 8px; margin-top: 14px; }
+.ticket {
+  position: relative; width: 66px; height: 86px; padding: 0; border: 0; cursor: pointer;
+  display: grid; grid-template-rows: 28% 1fr auto; justify-items: center; align-items: center;
+  font-family: var(--display); color: var(--ink);
+  background: linear-gradient(180deg, #f6eddb, #e6d6b6);
+  rotate: var(--tr, 0deg);
+  -webkit-mask: radial-gradient(circle 7px at 0 28%, #0000 96%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 7px at 100% 28%, #0000 96%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle 7px at 0 28%, #0000 96%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 7px at 100% 28%, #0000 96%, #000) right / 51% 100% no-repeat;
+  transition: translate .25s ease, background .25s ease;
+}
+.ticket::before { content: ''; position: absolute; left: 9px; right: 9px; top: 28%; border-top: 2px dashed rgba(32, 21, 14, .45); }
+.t-code { font-size: 10px; font-weight: 600; letter-spacing: .1em; text-transform: uppercase; align-self: center; white-space: nowrap; }
+.t-big { font-size: 26px; font-weight: 700; line-height: 1; }
+.t-name { font: 500 12px/1 var(--serif); font-style: italic; padding-bottom: 10px; }
+.ticket:hover { translate: 0 -4px; }
+.ticket[aria-pressed="true"] {
+  background: linear-gradient(140deg, #fbeaa9, #d6a748 52%, #f4d98b);
+  translate: 0 -10px;
+}
+.ticket[aria-pressed="true"]::after {
+  content: ''; position: absolute; left: 50%; bottom: 7px; width: 9px; height: 9px; margin-left: -4.5px; border-radius: 50%;
+  background: #2a0a0b; box-shadow: inset 0 1px 2px rgba(0, 0, 0, .8), 0 0 0 1px rgba(120, 80, 20, .5);
+}
+.ticket[aria-pressed="true"] .t-name { padding-bottom: 20px; }
+.ticket:focus-visible { outline: 3px solid var(--ink); outline-offset: -8px; }
+
+/* ---------------------------------------------------------------- Karten und Tafeln */
+.panel {
+  background: rgba(18, 9, 6, .94);
+  color: var(--text-on-dark);
+  border: 1px solid rgba(212, 169, 79, .6);
+  box-shadow: 0 0 0 7px rgba(18, 9, 6, .94), 0 0 0 8px rgba(212, 169, 79, .35), 0 30px 60px rgba(0, 0, 0, .5);
+  padding: clamp(24px, 3.6vw, 52px);
+}
+.card {
+  background: var(--cream); color: var(--ink);
+  padding: clamp(22px, 2.6vw, 34px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, .5);
+  font-size: 1.15rem; line-height: 1.55;
+}
+.card p { margin: 0 0 .8em; }
+.card-title {
+  margin: 0 0 6px; display: flex; align-items: center; gap: 12px;
+  font: 500 clamp(28px, 2.6vw, 38px)/1.05 var(--display); color: var(--ink);
+}
+.card-icon { width: 44px; height: 44px; border-radius: 10px; flex: none; }
+.card-meta { font-style: italic; color: #4e3626; }
+.card-status { font: 500 16px/1.2 var(--display); letter-spacing: .04em; color: #2c4a22; }
+.card-status.is-wip { color: #7a2c12; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin: 1.1em 0 0 !important; }
+.btn {
+  display: inline-flex; align-items: center; min-height: 46px; padding: 10px 18px;
+  font: 500 17px/1.1 var(--display); letter-spacing: .03em; text-decoration: none;
+  background: var(--ink); color: var(--ivory); border: 2px solid var(--ink); cursor: pointer;
+  transition: background .2s ease, color .2s ease;
+}
+.btn:hover { background: #4a1315; border-color: #4a1315; }
+.btn-ghost { background: transparent; color: var(--ink); }
+.btn-ghost:hover { background: var(--ink); color: var(--ivory); border-color: var(--ink); }
+.card :focus-visible, .page :focus-visible { outline-color: #7a1618; }
+
+/* ---------------------------------------------------------------- Saal I */
+.about-grid { display: grid; grid-template-columns: 5fr 7fr; gap: clamp(32px, 5vw, 80px); align-items: center; }
+.exhibit.inline .frame { --fw: clamp(16px, 2vw, 34px); }
+.about-text p { margin: 0 0 1em; font-size: clamp(1.2rem, 1.45vw, 1.42rem); line-height: 1.62; }
+.about-text p:last-child { margin-bottom: 0; }
+.facts { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 26px 22px; }
+.fact {
+  background: var(--cream); color: var(--ink); padding: 18px 20px 20px;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, .5); rotate: var(--r);
+}
+.fact h4 { margin: 0 0 6px; font: 500 21px/1.15 var(--display); }
+.fact p { margin: 0; font-size: 1.08rem; line-height: 1.5; }
+
+/* ---------------------------------------------------------------- Saal II */
+.work { display: grid; gap: clamp(28px, 4vw, 64px); align-items: center; margin-bottom: clamp(72px, 12vh, 130px); }
+.work:last-child { margin-bottom: 0; }
+.work-0 { grid-template-columns: 7fr 5fr; }
+.work-1 { grid-template-columns: 6fr 4fr; }
+.work-1 .exhibit { order: 2; width: min(100%, 380px); justify-self: center; rotate: 2deg; }
+.work-1 .card { order: 1; }
+.work-2 { grid-template-columns: 4fr 6fr; max-width: 920px; margin-inline: auto; }
+.work-2 .exhibit { rotate: -2deg; }
+.work-2 .frame { --fw: clamp(12px, 1.4vw, 24px); }
+.work-2 .card-title { font-size: clamp(24px, 2vw, 30px); }
+
+/* ---------------------------------------------------------------- Saal III */
+.certs-earned { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); }
+.certs-wip { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 72px); max-width: 900px; margin: clamp(64px, 10vh, 110px) auto 0; }
+.cert { display: grid; gap: 26px; align-content: start; }
+.certs-wip .exhibit { width: 62%; justify-self: center; }
+.certs-wip .frame { --fw: clamp(12px, 1.3vw, 22px); }
+.cert:nth-child(odd) .exhibit { rotate: -1.2deg; }
+.cert:nth-child(even) .exhibit { rotate: 1.4deg; }
+
+/* ---------------------------------------------------------------- Saal IV */
+.infopanel {
+  display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 5vw, 80px);
+  background: rgba(14, 7, 4, .95); color: var(--text-on-dark);
+  border: 1px solid rgba(212, 169, 79, .65);
+  box-shadow: 0 0 0 8px rgba(14, 7, 4, .95), 0 0 0 9px rgba(212, 169, 79, .35), 0 40px 80px rgba(0, 0, 0, .6);
+  padding: clamp(26px, 4.5vw, 64px);
+}
+.infopanel h3 {
+  margin: 0 0 18px; padding-bottom: 10px; border-bottom: 1px solid rgba(212, 169, 79, .45);
+  font: 500 clamp(28px, 2.6vw, 38px)/1 var(--display); text-transform: uppercase; color: var(--gold-hi);
+}
+.infopanel * + h3 { margin-top: 48px; }
+.infopanel h4 { margin: 22px 0 8px; font: 500 19px/1.2 var(--display); letter-spacing: .04em; color: #f0dcae; }
+.timeline, .skills, .plain, .docs { list-style: none; margin: 0; padding: 0; }
+.timeline li { display: grid; gap: 2px; padding: 0 0 22px 22px; border-left: 2px solid rgba(212, 169, 79, .5); position: relative; }
+.timeline li::before { content: ''; position: absolute; left: -7px; top: 6px; width: 12px; height: 12px; border-radius: 50%; background: var(--gold); box-shadow: 0 0 0 3px rgba(14, 7, 4, 1); }
+.timeline li:last-child { padding-bottom: 4px; }
+.when { font: 500 16px/1.3 var(--display); letter-spacing: .05em; color: #ebc978; }
+.timeline b, .plain b, .docs b { font-weight: 600; color: #fff8ec; font-size: 1.22rem; line-height: 1.35; }
+.detail { color: var(--muted-on-dark); font-size: 1.1rem; }
+.skills li { display: flex; justify-content: space-between; align-items: baseline; gap: 16px; padding: 8px 0; border-bottom: 1px dotted rgba(212, 169, 79, .3); font-size: 1.15rem; }
+.lv { display: inline-flex; align-items: center; gap: 10px; white-space: nowrap; }
+.lv em { font-style: italic; color: #ecd9b3; }
+.dots { display: inline-flex; gap: 4px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid var(--gold); }
+.dots i.on { background: var(--gold); }
+.plain li { padding: 6px 0; }
+.docs li { display: flex; justify-content: space-between; align-items: baseline; gap: 14px; padding: 8px 0; border-bottom: 1px dotted rgba(212, 169, 79, .3); }
+.tag { flex: none; font: 500 14px/1 var(--display); letter-spacing: .06em; padding: 6px 9px; border: 1px solid var(--gold); color: var(--gold-hi); }
+
+/* ---------------------------------------------------------------- Ausgang / Gästebuch */
+.room-contact { padding-bottom: 0; }
+.room-contact .room-inner { padding-bottom: clamp(120px, 24vh, 240px); }
+.room-contact .wainscot { height: clamp(110px, 20vh, 220px); }
+.exit-sign {
+  display: inline-flex; align-items: center; gap: 12px; margin: 0 0 22px;
+  padding: 10px 16px; background: #0f6a3c; color: #fff;
+  font: 600 18px/1 var(--display); letter-spacing: .08em; text-transform: uppercase;
+  box-shadow: 0 0 22px rgba(30, 200, 110, .35), inset 0 0 0 2px rgba(255, 255, 255, .85);
+}
+.exit-run { width: 22px; height: 22px; background: no-repeat center / contain url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E"); }
+.book {
+  display: grid; grid-template-columns: 1fr 1fr; max-width: 1040px; margin: 0 auto;
+  padding: 16px; border-radius: 8px;
+  background: linear-gradient(180deg, #4a1a12, #2e0e09);
+  box-shadow: 0 40px 70px rgba(0, 0, 0, .6), inset 0 0 0 2px rgba(212, 169, 79, .35);
+}
+.page {
+  background-color: #f3e9d4; color: var(--ink);
+  padding: clamp(26px, 4vw, 56px);
+  min-height: 380px;
+}
+.page-l { background-image: linear-gradient(90deg, rgba(0, 0, 0, 0) 80%, rgba(80, 50, 20, .22)); border-radius: 4px 0 0 4px; }
+.page-r { background-image: linear-gradient(90deg, rgba(80, 50, 20, .22), rgba(0, 0, 0, 0) 20%); border-radius: 0 4px 4px 0; }
+.gb-title { margin: 0 0 12px; font: 400 clamp(52px, 5.4vw, 84px)/1 var(--script); color: #3a1610; }
+.gb-line { margin: 0; font-size: 1.3rem; line-height: 1.5; max-width: 26ch; }
+.gb-rules { height: 120px; margin-top: 30px; background: repeating-linear-gradient(180deg, transparent 0 38px, rgba(60, 40, 20, .3) 38px 39px); }
+.gb-label { margin: 0 0 4px; font: 500 15px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: #5a3d28; }
+.gb-label:not(:first-child) { margin-top: 36px; }
+.gb-big { margin: 0; font-size: clamp(1.35rem, 2vw, 1.8rem); line-height: 1.3; overflow-wrap: anywhere; }
+.gb-big a { color: #6d1416; text-decoration-thickness: 1px; text-underline-offset: 4px; }
+.copy-status { font: 500 16px/1 var(--display); color: #2c4a22; }
+.gb-more { list-style: none; margin: 30px 0 0; padding: 0; display: grid; gap: 12px; }
+.gb-more li { display: grid; grid-template-columns: 112px 1fr; align-items: baseline; gap: 12px; padding-bottom: 10px; border-bottom: 1px dotted rgba(90, 61, 40, .35); }
+.gb-more .gb-label { margin: 0; }
+.gb-more a { font-size: 1.22rem; color: #6d1416; text-decoration-thickness: 1px; text-underline-offset: 4px; overflow-wrap: anywhere; }
+.exit-row { display: flex; justify-content: space-between; align-items: flex-end; gap: 24px; max-width: 1040px; margin: 56px auto 0; flex-wrap: wrap; }
+.tickets-exit { margin: 0; }
+.to-top { font: 500 18px/1 var(--display); letter-spacing: .04em; color: var(--ivory); text-underline-offset: 6px; }
+
+/* ---------------------------------------------------------------- Herantreten (Dialog) */
+/* 100 % statt 100vw/100vh: auf dem Handy reicht 100vh bis unter die Browserleiste, das Ende des Etiketts wäre verdeckt */
+.viewer {
+  position: fixed; inset: 0; width: 100%; height: 100%; max-width: none; max-height: none;
+  margin: 0; padding: 0; border: 0; background: transparent; color: var(--text-on-dark);
+  overflow: hidden;
+}
+.viewer::backdrop { background: rgba(10, 4, 2, .25); }
+.viewer-panel {
+  position: absolute; top: 4vh; bottom: 4vh; right: 3vw; width: min(46vw, 760px);
+  overflow-y: auto; overscroll-behavior: contain;
+  background: rgba(16, 8, 5, .985);
+  border: 1px solid rgba(212, 169, 79, .7);
+  box-shadow: 0 0 0 7px rgba(16, 8, 5, .96), 0 0 0 8px rgba(212, 169, 79, .35), 0 40px 90px rgba(0, 0, 0, .7);
+  padding: clamp(24px, 3.4vw, 52px);
+  animation: panel-in .45s cubic-bezier(.2, .7, .2, 1) both;
+}
+@keyframes panel-in { from { opacity: 0; translate: 24px 0; } }
+.viewer-close {
+  position: sticky; top: 0; float: right; z-index: 2;
+  display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 8px 14px;
+  font: 500 16px/1 var(--display); letter-spacing: .03em; cursor: pointer;
+  background: linear-gradient(180deg, #f1da93, #c49a48); color: #24160a; border: 0;
+}
+.viewer-close span[aria-hidden] { font-size: 22px; line-height: .7; }
+.viewer-body { clear: both; padding-top: 8px; }
+.v-kicker { margin: 0 0 6px; font: 500 16px/1.2 var(--display); letter-spacing: .1em; text-transform: uppercase; color: #ebc978; }
+.viewer h2 { margin: 0 0 18px; font: 500 clamp(40px, 4.4vw, 72px)/.95 var(--display); text-transform: uppercase; color: var(--ivory); display: flex; align-items: center; gap: 14px; }
+.viewer .card-meta { color: #ecd9b3; font-size: 1.2rem; }
+.viewer p { font-size: 1.22rem; line-height: 1.6; }
+.viewer .btn { background: linear-gradient(180deg, #f1da93, #c49a48); color: #24160a; border-color: #d2a750; }
+.viewer .btn:hover { background: var(--ivory); border-color: var(--ivory); }
+.viewer .btn-ghost { background: transparent; color: var(--ivory); border-color: #d2a750; }
+.viewer .btn-ghost:hover { background: #d2a750; color: #24160a; }
+.v-sub { margin: 34px 0 16px; font: 500 28px/1 var(--display); text-transform: uppercase; color: var(--gold-hi); }
+.facts-compact { grid-template-columns: 1fr 1fr; gap: 14px; }
+.facts-compact .fact { rotate: 0deg; padding: 14px 16px; }
+.facts-compact .fact p { font-size: 1.02rem; }
+.v-certs { display: grid; gap: 14px; }
+.v-cert { padding: 18px 0; border-top: 1px solid rgba(212, 169, 79, .4); }
+.v-cert h3 { margin: 0 0 4px; font: 500 26px/1.1 var(--display); color: var(--ivory); }
+.v-cert p { margin: 0 0 .4em; }
+.v-cert .card-status { color: #a8d79a; }
+.v-cert .card-status.is-wip { color: #f2b48a; }
+
+/* ================================================================ Salon-Ergänzungen (aus Jahreszeiten und neu) */
+
+/* Foyer: Bunprise als kleine Bühne mit dem echten Maskottchen (vendor/bunny.js) */
+.bp-card {
+  position: absolute; inset: 0; container-type: inline-size;
+  display: grid; grid-template-rows: auto auto 1fr; justify-items: center; text-align: center;
+  padding: 7% 6% 0; overflow: hidden;
+  background: radial-gradient(ellipse 80% 70% at 22% 0%, #5a3418, transparent 70%), radial-gradient(ellipse 70% 60% at 100% 100%, #2c1f2c, transparent 70%), #1c110a;
+  color: #fbf1df; font-family: Nunito, system-ui, sans-serif;
+}
+.bp-name { font-size: 12.5cqw; font-weight: 800; line-height: 1; letter-spacing: -.01em; }
+.bp-sub { margin-top: 2.2cqw; font-size: 4.3cqw; font-weight: 600; line-height: 1.2; color: #e9cfa8; }
+.bp-bunny { width: 58cqw; align-self: start; margin-top: -6cqw; }   /* Bühne 400×260, der Hase steht in der Mitte */
+
+/* Fun Facts mit Foto: kleines Polaroid steckt oben rechts an der Karte */
+.fact { position: relative; }
+.fact.has-photo { padding-right: 92px; }
+.fact-photo {
+  position: absolute; right: -10px; top: -14px; width: 86px; padding: 5px 5px 16px; background: #fbf7ee;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, .45); rotate: 5deg;
+}
+.fact:nth-child(even) .fact-photo { rotate: -4deg; }
+.fact-photo img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; }
+.facts-compact .fact-photo { display: none; }
+.facts-compact .fact.has-photo { padding-right: 16px; }
+
+/* Plattenhüllen an der Wand: quadratische Hülle, die Platte rollt rechts zur Hälfte heraus (Deko, nur breit) */
+.sleeve { position: absolute; z-index: 1; width: clamp(130px, 9.5vw, 190px); aspect-ratio: 1; rotate: var(--r, 0deg); display: none; }
+.sleeve .disc {
+  position: absolute; inset: 3%; border-radius: 50%;
+  background:
+    radial-gradient(circle, #1a0a06 0 2.2%, var(--label, #d4a94f) 2.6% 16%, #0d0908 16.4% 17.5%, transparent 17.8%),
+    conic-gradient(from 20deg, rgba(255, 255, 255, 0) 0 8%, rgba(255, 255, 255, .13) 12%, rgba(255, 255, 255, 0) 18% 50%, rgba(255, 255, 255, .1) 62%, rgba(255, 255, 255, 0) 70%),
+    repeating-radial-gradient(circle, #151010 0 1.5px, #221a18 1.5px 2.6px);
+  box-shadow: 0 0 0 2px #070505, 0 8px 18px rgba(0, 0, 0, .55);
+  translate: var(--out); transition: translate .6s cubic-bezier(.2, .8, .2, 1);
+}
+.sleeve:hover .disc { translate: calc(var(--dx, 0) * 1%) calc(var(--dy, 0) * 1%); }
+.sleeve .cover {
+  position: absolute; inset: 0; display: grid; align-content: end; padding: 9%;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, .62)), var(--img, none) center / cover, var(--art, #2a0b0c);
+  box-shadow: 0 16px 28px rgba(0, 0, 0, .55), inset 0 0 0 1px rgba(255, 255, 255, .12);
+  color: #fbf1df;
+}
+.sleeve .cover b { font: 400 clamp(26px, 2.1vw, 40px)/.9 var(--script); }
+.sleeve .cover i { font: 500 clamp(10px, .7vw, 13px)/1.2 var(--display); font-style: normal; letter-spacing: .16em; text-transform: uppercase; color: #f3dc93; }
+.sleeve-a { --r: 4deg; --label: #f3dc93; --dx: 64; right: max(120px, calc((100vw - 1240px) / 2 - 140px)); top: 22vh; }
+.sleeve-b { --r: -3deg; --label: #c2452a; --dx: 64; left: max(24px, calc((100vw - 1240px) / 2 - 250px)); top: 34vh; }
+.sleeve-c { --r: 3deg; --label: #17332b; --dx: 64; right: max(120px, calc((100vw - 1240px) / 2 - 140px)); top: 26vh;
+  --art: repeating-conic-gradient(from 0deg at 50% 118%, #d4a94f 0 5deg, #6a1420 5deg 10deg); }
+.sleeve-c .cover b { font: 600 clamp(26px, 2vw, 38px)/1 var(--display); letter-spacing: .04em; }
+@media (min-width: 1500px) { .sleeve { display: block; } }
+
+/* Hüllen sind Knöpfe: Klick legt die Platte auf das Grammophon; die Hülle der aufgelegten Platte ist leer */
+button.sleeve { padding: 0; border: 0; background: none; cursor: pointer; font: inherit; color: inherit; }
+button.sleeve:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 6px; }
+.sleeve.is-on .disc { opacity: 0; translate: 0 0; transition: translate .5s ease, opacity .3s ease .2s; }
+.sleeve.is-on .cover::after { content: "♪"; position: absolute; right: 8%; top: 6%; font: 600 clamp(14px, 1.2vw, 20px)/1 var(--display); color: var(--gold-hi); text-shadow: 0 1px 4px rgba(0, 0, 0, .7); }
+.gb-links { display: flex; flex-wrap: wrap; gap: 4px 16px; }
+
+/* Buchstaben, die beim Darüberfahren hüpfen und golden glimmen (effects.js) */
+.lt { display: inline-block; transition: color .5s ease, text-shadow .5s ease; }
+.lt.is-lit { color: var(--gold-hi); text-shadow: 0 0 18px rgba(255, 214, 150, .75); transition-duration: .08s; }
+
+/* Noten, die aus dem Trichter steigen */
+.note { position: absolute; z-index: 3; pointer-events: none; color: var(--gold-hi); font-family: var(--serif); line-height: 1; text-shadow: 0 0 10px rgba(255, 200, 120, .6); }
+
+/* Goldornament unter jeder Saal-Überschrift: zeichnet sich beim Hinscrollen (--b aus effects.js) */
+.ornament { display: block; width: min(440px, 86%); height: auto; margin: 14px 0 0 -4px; overflow: visible; --b: 0; }
+.o-line {
+  fill: none; stroke: var(--gold); stroke-width: 2.2; stroke-linecap: round; stroke-dasharray: 1;
+  stroke-dashoffset: calc(1 - clamp(0, (var(--b) - var(--d)) / var(--w), 1));
+}
+.o-leaf { fill: var(--gold); opacity: clamp(0, (var(--b) - var(--d)) / .2, 1); }
+.o-rose { fill: var(--gold); transform: rotate(calc(-90deg + 90deg * var(--b))) scale(clamp(0, var(--b) * 1.6, 1)); transform-origin: 0 0; }
+.o-rose circle { fill: #7a1a1c; stroke: var(--gold); stroke-width: 1.2; }
+
+/* Vom Poster zur Website: beim Darüberfahren wird ein Paar „ausgewählt“ – das Poster richtet sich auf und hebt sich,
+   der Rahmen glimmt golden, die anderen Paare treten zurück (nur transform/opacity, weich) */
+.study, .study-poster, .study-site, .study-plaque { transition: opacity .45s cubic-bezier(.2, .8, .2, 1), rotate .5s cubic-bezier(.2, .8, .2, 1), translate .5s cubic-bezier(.2, .8, .2, 1), scale .5s cubic-bezier(.2, .8, .2, 1); }
+.study-site .frame::after { content: ""; position: absolute; inset: calc(var(--fw) * -1); pointer-events: none; opacity: 0; transition: opacity .45s ease;
+  box-shadow: 0 0 0 2px rgba(243, 220, 147, .55), 0 0 46px 6px rgba(255, 200, 120, .32); }
+@media (hover: hover) {
+  .study-grid:hover .study:not(:hover) { opacity: .55; }
+  .study:hover .study-poster { rotate: 0deg; translate: -6px -12px; scale: 1.06; }
+  .study:hover .study-site { translate: 0 -6px; }
+  .study:hover .study-site .frame::after { opacity: 1; }
+  .study:hover .study-plaque { translate: 0 -4px; }
+}
+.study:focus-within .study-poster { rotate: 0deg; translate: -6px -12px; scale: 1.06; }
+.study:focus-within .study-site .frame::after { opacity: 1; }
+
+/* Zum Inhalt springen: nur sichtbar, wenn man mit der Tastatur hinkommt */
+.skip {
+  position: fixed; z-index: 50; left: 16px; top: 16px; padding: 12px 18px;
+  font: 500 17px/1 var(--display); letter-spacing: .03em; text-decoration: none;
+  background: linear-gradient(180deg, #f1da93, #c49a48); color: #24160a;
+  translate: 0 -160%; transition: translate .2s ease;
+}
+.skip:focus { translate: 0 0; }
+
+/* Vorname als Knopf: FELIKS ⇄ FELIX */
+.hl-btn {
+  display: block; margin: 0 auto; padding: 0; border: 0; background: none;
+  font: inherit; color: inherit; line-height: inherit; letter-spacing: inherit; cursor: pointer;
+}
+.hl-btn:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 10px; }
+
+/* Saal I: unten links die Fun Facts, rechts daneben das Grammophon auf einem Sockel */
+.about-lower { display: grid; grid-template-columns: minmax(0, 1fr) minmax(300px, 400px); gap: clamp(40px, 5vw, 80px); align-items: end; }
+.about-lower .facts { grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); }
+.spin-slot { display: grid; justify-items: center; min-width: 0; }
+.spin { position: relative; width: min(100%, 430px); display: grid; justify-items: center; --lemon: var(--gold-hi); --ink: #24160a; }
+.deck { position: relative; }
+.deck__canvas { position: absolute; inset: 0; width: 100%; height: 100%; }
+.deck__record { position: absolute; border: 0; padding: 0; margin: 0; border-radius: 50%; background: transparent; cursor: grab; touch-action: none; -webkit-tap-highlight-color: transparent; }
+.deck__record.grabbing { cursor: grabbing; }
+@media (pointer: coarse) { .deck__record { touch-action: pan-y; } }   /* Finger: senkrecht = Seite scrollen, seitlich = scratchen */
+.deck__record:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 6px; }
+.deck__start { position: absolute; z-index: 3; border: 0; cursor: pointer; }
+.deck--case { z-index: 1; width: 100%; aspect-ratio: 1.45; filter: drop-shadow(0 22px 24px rgba(0, 0, 0, .6)); }
+.deck__start.deck__knob {
+  display: block; padding: 0; border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #fff8d8, #e3c27a 45%, #8a6420);
+  box-shadow: 0 3px 6px rgba(20, 0, 6, .5), inset 0 -2px 3px rgba(60, 30, 0, .4);
+}
+.deck__start.deck__knob:hover { background: radial-gradient(circle at 35% 30%, #fffbe8, #ecd08e 45%, #9a7428); }
+.deck__knob::after { content: ""; position: absolute; left: 44%; top: 12%; width: 12%; height: 38%; border-radius: 3px; background: #5a0f1e; transform-origin: 50% 100%; transform: rotate(-50deg); transition: transform .35s cubic-bezier(.3, 1.5, .5, 1); }
+.deck__knob[aria-pressed="true"]::after { transform: rotate(50deg); }
+.deck__knob:focus-visible { outline: 3px solid var(--gold-hi); outline-offset: 3px; }
+/* Grammophon: Gehäuse, Trichter und Tonarm zeichnet deck.js (Variante gramo) auf einem Canvas */
+.deck--gramo { aspect-ratio: 1.05; }   /* Schatten zeichnet deck.js selbst (kein CSS-Filter auf einem Canvas, das sich bewegt) */
+
+/* Sockel zeichnet deck.js jetzt selbst in 3D (passt zur Schrägansicht); das alte flache Brett bleibt aus */
+.plinth { display: none !important;
+  width: 100%; height: clamp(26px, 3.4vw, 38px); margin-top: -4.5%;   /* Füße stehen auf dem Sockel */
+  background:
+    linear-gradient(180deg, #c79a4a 0 3px, #5a3812 3px 5px, transparent 5px),
+    linear-gradient(180deg, #3a1f0d, #1c0e05);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, .55), inset 0 -6px 10px rgba(0, 0, 0, .5);
+}
+/* Hinweis ohne Schild: bis man die Platte zum ersten Mal anfasst, atmet ein goldener Schimmer um sie herum.
+   Nur Deckkraft und Größe werden animiert (läuft auch auf dem iPad flüssig). */
+.deck__record::after {
+  content: ""; position: absolute; inset: -4%; border-radius: 50%; pointer-events: none; opacity: 0;
+  box-shadow: 0 0 0 2px rgba(255, 240, 190, .95), 0 0 22px 8px rgba(255, 214, 130, .8), 0 0 70px 24px rgba(255, 180, 80, .4), inset 0 0 26px 6px rgba(255, 222, 150, .55);
+  transition: opacity .6s ease;
+}
+.spin.untouched .deck__record::after { animation: deck-invite 2.6s ease-in-out infinite; }
+.spin.untouched .deck__record:hover::after { animation: none; opacity: 1; }
+@keyframes deck-invite { 0%, 100% { opacity: 0; scale: .96; } 50% { opacity: 1; scale: 1.02; } }
+@media (prefers-reduced-motion: reduce) { .spin.untouched .deck__record::after { animation: none; opacity: .7; } }
+/* Musik an: der Saal wird ein wenig wärmer (eigene Schicht, nur ihre Deckkraft ändert sich) */
+.lighting::before { content: ""; position: absolute; inset: 0; z-index: 1; background: rgba(255, 160, 80, .07); opacity: 0; transition: opacity 1.2s ease; }
+.music-on .lighting::before { opacity: 1; }
+
+/* Saal II: weitere Projekte (ab dem vierten) wechseln die Seite */
+.work-n { grid-template-columns: 6fr 5fr; }
+.work-flip .exhibit { order: 2; }
+
+/* Vom Poster zur Website */
+.studies { margin-top: clamp(96px, 16vh, 180px); }
+.studies .sub { margin-top: 0; }
+.studies-lead { max-width: 62ch; margin: 0 0 clamp(40px, 7vh, 72px); font-size: clamp(1.2rem, 1.4vw, 1.36rem); line-height: 1.6; color: var(--text-on-dark); }
+.study-grid { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(64px, 10vh, 112px) clamp(36px, 5vw, 80px); }
+.study { display: grid; gap: 22px; align-content: start; }
+.study-pair { position: relative; padding-left: 20%; padding-bottom: 9%; }
+.study-site .frame { --fw: clamp(12px, 1.3vw, 22px); }
+.study-poster { position: absolute; left: 0; bottom: 0; width: 31%; z-index: 2; rotate: -4deg; }
+.study:nth-child(even) .study-poster { rotate: 3deg; }
+.study-poster .frame { --fw: clamp(9px, .9vw, 15px); }
+.study-poster .frame-liner .art { padding: 5%; }
+.study-poster .empty-note { font-size: clamp(22px, 1.8vw, 30px); }
+/* nur ein Messingschild mit dem Namen; Text, Vorlage und Live-Link zeigt das große Etikett beim Klick */
+.study-plaque {
+  justify-self: center; margin: 4px 0 0; padding: 8px 16px 7px;
+  font: 500 15px/1 var(--display); letter-spacing: .14em; text-transform: uppercase; color: #2a1a08;
+  background: linear-gradient(180deg, #f1da93, #b98d3c 52%, #e2c47c); border-radius: 2px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .6), inset 0 -1px 0 rgba(0, 0, 0, .3), 0 3px 8px rgba(0, 0, 0, .5);
+}
+.here { display: inline-block; font: 500 16px/1.2 var(--display); letter-spacing: .06em; text-transform: uppercase; color: #6d1416; border-bottom: 2px solid currentColor; padding-bottom: 2px; }
+.viewer .here { color: var(--gold-hi); }
+
+/* Herantreten an eine Studie: Poster und Website nebeneinander */
+.v-compare { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; align-items: end; margin: 0 0 20px; }
+.v-compare-solo { grid-template-columns: 1fr; }
+.v-compare figure { margin: 0; }
+.v-compare img { width: 100%; height: auto; box-shadow: 0 0 0 1px rgba(212, 169, 79, .5), 0 12px 26px rgba(0, 0, 0, .55); }
+.v-compare figcaption { margin-top: 8px; font: 500 14px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: #ebc978; }
+
+/* Fußzeile in der Holzvertäfelung am Ausgang */
+.foot { position: absolute; left: 0; right: 0; bottom: 18px; margin: 0; text-align: center; font: 400 15px/1.4 var(--serif); color: #d9c39a; }
+
+@media (max-width: 1000px) {
+  .about-lower { grid-template-columns: 1fr; }
+}
+@media (max-width: 860px) {
+  .spin-slot { justify-items: center; }
+  .spin { width: min(100%, 380px); }
+  .study-grid { grid-template-columns: 1fr; }
+  .work-n { grid-template-columns: 1fr; }
+  .work-flip .exhibit { order: 0; }
+  .v-compare { grid-template-columns: 1fr 1.6fr; gap: 10px; }
+}
+
+/* ---------------------------------------------------------------- Foyer im Hochformat */
+/* Handy, iPad hochkant, schmales hohes Fenster: eigene Hängung – großes Mittelbild, vier Bilder ragen aus den Ecken
+   herein. Hier ist --u einfach 1 % der Bildschirmbreite, die Bühne füllt das ganze Foyer. */
+@media (orientation: portrait) {
+  .foyer { --u: 1vw; }
+  .salon { max-width: none; }
+  .salon .label { display: none; }
+  .salon .ex-suit { --y: 15%; --ws: min(64vw, calc(var(--fh) * .4)); }
+  .salon .ex-flipper { --x: 1%; --y: 3%; --w: 27; --rot: -7deg; }
+  .salon .ex-bunprise { --x: 70%; --y: 2%; --w: 38; --rot: 8deg; }
+  .salon .ex-balloons { --x: -5%; --y: 50%; --w: 26; --rot: 7deg; }
+  .salon .ex-render { --x: 80%; --y: 49%; --w: 30; --rot: -7deg; }
+  .salon .ex-depth, .salon .ex-cert1, .salon .ex-cert2 { display: none; }
+  .salon .frame { --fw: clamp(9px, 2.4vw, 18px); }
+  .salon .ex-suit .frame { --fw: clamp(12px, 3.4vw, 26px); }
+  .headline { top: 43%; }
+  .hl-1 { font-size: clamp(84px, 25vw, 200px); }
+  /* bottom −2 % statt 14 %: der Schatten löst sich erst UNTER der Bodenleiste auf, steht also auf dem Boden
+     statt darüber zu schweben (Felix 12.11.) */
+  .ghost { height: 56%; left: 50%; bottom: -2%; }
+  .foyer .wainscot { height: 20%; }
+}
+/* ---------------------------------------------------------------- Schmal / Telefon */
+@media (max-width: 860px) {
+  .admission { bottom: 26px; }
+  .tickets { gap: 7px; margin-top: 12px; }
+  .ticket { width: 62px; height: 84px; }
+  .t-big { font-size: 24px; }
+  .t-code { font-size: 9.5px; }
+  .t-name { font-size: 11px; }
+
+  .about-grid, .work-0, .work-1, .work-2, .certs-earned, .certs-wip, .infopanel, .book { grid-template-columns: 1fr; }
+  .about-grid .exhibit { width: min(80%, 420px); justify-self: center; }
+  .work-1 .exhibit { order: 0; width: min(70%, 360px); }
+  .work-2 .exhibit { width: min(70%, 360px); justify-self: center; }
+  .certs-wip { gap: 56px; }
+  .page-l { border-radius: 4px 4px 0 0; background-image: linear-gradient(180deg, rgba(0, 0, 0, 0) 80%, rgba(80, 50, 20, .2)); min-height: 0; }
+  .page-r { border-radius: 0 0 4px 4px; background-image: linear-gradient(180deg, rgba(80, 50, 20, .2), rgba(0, 0, 0, 0) 20%); min-height: 0; }
+  .gb-rules { display: none; }
+
+  .viewer-panel { top: 40svh; bottom: 0; left: 0; right: 0; width: auto; padding: 22px 18px 40px; box-shadow: 0 -20px 60px rgba(0, 0, 0, .6); }
+  @keyframes panel-in { from { opacity: 0; translate: 0 40px; } }
+  .facts-compact { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .admission { right: 12px; }
+}
+/* niedriges Querformat (Handy quer): kleinere Tickets, damit sie die Bilder rechts unten nicht berühren */
+@media (orientation: landscape) and (max-height: 520px) {
+  .admission { bottom: 12px; }
+  .tickets { gap: 6px; margin-top: 0; }
+  .ticket { width: 50px; height: 66px; }
+  .t-big { font-size: 19px; }
+  .t-code { font-size: 7.5px; }
+  .t-name { font-size: 9.5px; padding-bottom: 7px; }
+  .ticket[aria-pressed="true"] { translate: 0 -6px; }
+  .ticket[aria-pressed="true"] .t-name { padding-bottom: 15px; }
+  .ticket[aria-pressed="true"]::after { bottom: 5px; width: 7px; height: 7px; margin-left: -3.5px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .room { transition: none; }
+  .salon .exhibit { translate: none; }
+  .ghost { translate: -50% 0; }   /* -50 % = Zentrierung bleibt, nur das Mitwandern fällt weg */
+  .viewer-panel { animation: none; }
+}
+
+/* ---------------------------------------------------------------- Leicht-Modus (html.lite: iPad/iPhone + Touch)
+   Felix' iPad (10.11.2026, mit Tastatur): langsam, Artefakte, beim Scrollen verschwinden Stücke. Auf iOS ist JEDER
+   Browser (auch Firefox, Chrome) WebKit. Teuer sind dort: das SVG-Rauschfilter-Korn über dem ganzen Bildschirm, ein
+   CSS-Filter auf jedem Bild (= je eine eigene Grafikebene), Leucht-Filter am großen Namen und das Mitwandern
+   des Foyers bei jedem Scroll-Bild. Die Klasse setzt ein kleines Skript im <head> (index.html). Desktop unverändert. */
+.lite .lighting::after { display: none; }
+.lite .frame img, .lite .frame video, .lite button.frame .art :is(img, video) { filter: none; transition: none; }
+.lite .frame .art::after { background: rgba(30, 14, 4, .14); }   /* ersetzt das leichte Abdunkeln des Filters */
+.lite .headline { filter: none; text-shadow: 0 0 12px rgba(255, 238, 205, .55), 0 0 44px rgba(255, 196, 120, .4); }
+.lite .salon .exhibit { translate: none; }
+.lite .ghost { translate: -50% 0; }   /* -50% = Zentrierung bleibt, nur das Mitwandern fällt weg */
+/* Schatten: Bild img/depth-ghost.webp (main.js tauscht es) hat Farbe, Maske und Deckkraft schon eingebacken */
+.lite .ghost { filter: none; mix-blend-mode: normal; -webkit-mask-image: none; mask-image: none; opacity: 1; }
+/* Beim Scrollen malt WebKit neue Stücke mit dem Prozessor. Gemessen (Playwright-WebKit, iPad-Emulation, 10.11.2026):
+   weiche Schatten ≈ 30 %, SVG-Rahmen (border-image) ≈ 24 %, SVG-Tapete ≈ 17 % der Zeichenzeit.
+   → Rahmen und Tapete als fertige PNG (3-fach, aus frame.svg/damask.svg gerendert), Schatten mit kleinem Weichzeichner. */
+.lite body { background-image: url(./damask.png); }
+.lite .room {
+  background-image:
+    linear-gradient(180deg, rgba(0, 0, 0, .35), rgba(0, 0, 0, 0) 22%, rgba(0, 0, 0, 0) 78%, rgba(0, 0, 0, .4)),
+    url(./damask.png);
+}
+/* Rahmen als PNG erst, wenn es geladen ist (main.js setzt .frame-png) – bis dahin das eingebettete SVG statt leerer Rechtecke */
+.lite.frame-png .frame { border-image-source: url(./frame.png); border-image-slice: 120; }
+.lite .frame { box-shadow: 0 0 0 1px rgba(20, 10, 2, .7), 8px 16px 18px rgba(0, 0, 0, .5); }
+.lite .frame .art::after { box-shadow: inset 0 0 0 3px rgba(0, 0, 0, .55); }
+.lite .panel { box-shadow: 0 0 0 7px rgba(18, 9, 6, .94), 0 0 0 8px rgba(212, 169, 79, .35), 0 14px 22px rgba(0, 0, 0, .5); }
+.lite .card { box-shadow: 0 8px 14px rgba(0, 0, 0, .5); }
+.lite .fact { box-shadow: 0 6px 10px rgba(0, 0, 0, .5); }
+.lite .infopanel { box-shadow: 0 0 0 8px rgba(14, 7, 4, .95), 0 0 0 9px rgba(212, 169, 79, .35), 0 16px 26px rgba(0, 0, 0, .6); }
+.lite .book { box-shadow: 0 16px 26px rgba(0, 0, 0, .6), inset 0 0 0 2px rgba(212, 169, 79, .35); }
+.lite .sleeve .cover { box-shadow: 0 8px 14px rgba(0, 0, 0, .55), inset 0 0 0 1px rgba(255, 255, 255, .12); }
+.lite .plinth { box-shadow: 0 10px 16px rgba(0, 0, 0, .55), inset 0 -6px 10px rgba(0, 0, 0, .5); }
+.lite .viewer-panel { box-shadow: 0 0 0 7px rgba(16, 8, 5, .96), 0 0 0 8px rgba(212, 169, 79, .35), 0 16px 30px rgba(0, 0, 0, .7); }
+/* ohne Heranzoomen: Hintergrund etwas dunkler, damit das große Etikett trotzdem im Mittelpunkt steht */
+.lite .viewer::backdrop { background: rgba(10, 4, 2, .62); }
+@media (max-width: 860px) { .lite .viewer-panel { box-shadow: 0 -12px 26px rgba(0, 0, 0, .6); } }
+/* Glanzlicht im Foyer: mix-blend-mode über dem ganzen Bildschirm kostete ≈ 30 % jedes Bildes → normal gemischt,
+   Lichtpunkte als Verlauf statt blur()-Filter */
+.lite .glare { mix-blend-mode: normal; opacity: .7; }
+.lite .glare i { filter: none; background: radial-gradient(circle, rgba(255, 214, 150, .16) 50%, rgba(255, 214, 150, 0) 72%); }
+
+/* ---------------------------------------------------------------- Eingang (13.11.2026, Runde 4)
+   Dunkel + Zoom (Felix: so war es am besten, das Dunkel versteckt das Nachladen). Das Ende soll nicht „abreißen“:
+   Hellwerden 2,4 s als weiche Sinus-Kurve (keine schnelle Mitte), Zoom 1,6 s mit sanftem Auslaufen,
+   die Klassen nimmt main.js erst weg, wenn Vorhang UND Zoom fertig sind (dann hat sich nichts mehr bewegt).
+   .intro setzt index.html, .lights-on setzt main.js, sobald Schriften und Foyer-Bilder bereit sind.
+   Warum der Zoom VOR dem Vorhang fertig ist (Runde 7): Während ein scale läuft, malt der Browser das Foyer als
+   fertiges Bild in der Zoom-Größe und schiebt es nur noch kleiner (eigene Grafikebene) – Rahmen, Bilder und Schrift
+   sind dabei minimal weich. Ist der Zoom fertig, malt er alles neu in echter Schärfe: ein kleiner „Klick“, an dem die
+   Seite plötzlich anders aussieht. Lief der Zoom länger als der Vorhang (2,8 s), kam dieser Klick 0,4 s NACH dem
+   Hellwerden, wenn sich sonst nichts mehr bewegt (gemessen: Bildunterschied 2,9 statt 0,7 pro 0,1 s). Jetzt passiert
+   er bei 1,6 s, mitten im Hellwerden unter dem noch zu einem Drittel geschlossenen Vorhang; das Ende ist nur das weiche
+   Ausblenden des Vorhangs über der fertigen Seite. Unschärfe (1,4 s) aus demselben Grund vorher fertig. */
+/* Gezoomt werden die TEILE des Foyers, nicht das Foyer selbst: ein scale am Foyer machte es zu einer eigenen Ebene
+   UNTER dem Licht (z-index 1) – Schatten, Glanz, Bilder und Name lagen dann im Halbdunkel und sprangen am Ende
+   schlagartig darüber (= „Abriss, danach ist die Seite heller“, Felix 13.11.). Diese Teile haben schon eigene
+   z-index-Ebenen über dem Licht; ein scale ändert daran nichts. */
+.intro .foyer > :is(.salon, .headline, .ghost, .glare) {
+  scale: 1.045; transform-origin: 50% 50%;
+  transition: scale 1.6s cubic-bezier(.16, .6, .3, 1), filter 1.4s cubic-bezier(.37, 0, .63, 1);
+}
+/* Unschärfe nur auf der Bilderwand: Name und Schatten haben eigene Filter (Leuchten), die dürfen nicht überschrieben werden */
+.intro:not(.lite) .foyer > .salon { filter: blur(5px); }
+.intro.lights-on .foyer > :is(.salon, .headline, .ghost, .glare) { scale: 1; }
+.intro.lights-on .foyer > .salon { filter: none; }
+.snap .foyer > * { transition: none !important; }
+.curtain { display: none; }
+.intro .curtain, .lights-out .curtain {
+  display: block; position: fixed; inset: 0; z-index: 1000; pointer-events: none;
+  background: radial-gradient(ellipse at 50% 42%, #1a0807 0%, #060201 70%);
+  transition: opacity 2.4s cubic-bezier(.37, 0, .63, 1);
+}
+.intro.lights-on .curtain { opacity: 0; }
+/* „Zurück zum Eingang“: Licht geht aus (0,7 s), dann wie beim Eingang */
+.lights-out .curtain { animation: curtain-in .7s cubic-bezier(.5, 0, .5, 1) both; }
+@keyframes curtain-in { from { opacity: 0; } to { opacity: 1; } }
+
+/* ---------------------------------------------------------------- Experimente (experimente.js, abschaltbar) */
+/* Türen: oben in jedem Saal eine dunkle Laibung (Türrahmen) mit Goldschwelle; der Inhalt tritt aus der Tiefe hervor */
+.exp-tueren .room:not(.foyer)::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: min(55vh, 480px); z-index: 1; pointer-events: none;
+  background:
+    linear-gradient(90deg, rgba(0, 0, 0, .7), rgba(0, 0, 0, 0) 13%, rgba(0, 0, 0, 0) 87%, rgba(0, 0, 0, .7)),
+    linear-gradient(180deg, rgba(0, 0, 0, .75), rgba(0, 0, 0, 0) 45%);
+  -webkit-mask-image: linear-gradient(180deg, #000 30%, transparent); mask-image: linear-gradient(180deg, #000 30%, transparent);
+}
+.exp-tueren .room:not(.foyer)::after {
+  content: ''; position: absolute; left: 8%; right: 8%; top: 0; height: 2px; z-index: 1; pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(232, 196, 110, .85), transparent);
+  box-shadow: 0 0 14px rgba(232, 196, 110, .45);
+}
+.exp-tueren .room:not(.foyer) > .room-inner { opacity: 0; translate: 0 50px; scale: .975; }
+.exp-tueren .room:not(.foyer) > .room-inner.door-in {
+  opacity: 1; translate: 0 0; scale: 1;
+  transition: opacity .9s ease, translate 1.1s cubic-bezier(.2, .8, .2, 1), scale 1.1s cubic-bezier(.2, .8, .2, 1);
+}
+.exp-tueren .room:not(.foyer) > .room-inner.door-now { transition: none; }
+/* Schreibmaschine: jeder Buchstabe erscheint schlagartig (wie ein Typenhebel), am Ende blinkt kurz der Wagen */
+.tw-c { opacity: 0; animation: tw-in .01s linear forwards; }
+@keyframes tw-in { to { opacity: 1; } }
+.tw-caret::after {
+  content: ''; display: inline-block; width: .07em; height: .85em; margin-left: .08em; vertical-align: -.06em;
+  background: currentColor; animation: tw-blink .9s steps(1) infinite;
+}
+@keyframes tw-blink { 50% { opacity: 0; } }
+
+/* ---------------------------------------------------------------- Lebenslauf baut sich auf (effects.js buildCV)
+   --d = Verzögerung je Stück (nacheinander). .now = schon gesehen (nach Sprachwechsel): sofort fertig. */
+.build h3, .build h4, .build .skills li, .build .plain li, .build .docs li, .build .timeline li > * {
+  opacity: 0; translate: 0 18px;
+  transition: opacity .7s ease, translate .9s cubic-bezier(.2, .8, .2, 1), letter-spacing 1.1s cubic-bezier(.2, .8, .2, 1);
+  transition-delay: var(--d, 0s);
+}
+.build h3 { letter-spacing: .16em; }
+.build .timeline li > * { translate: -22px 0; transition-delay: calc(var(--d, 0s) + .22s); }
+.build .skills li { translate: 22px 0; }
+/* Zeitleiste: die Goldlinie zeichnet sich Station für Station nach unten, dann leuchtet der Punkt auf */
+.build .timeline li { border-left-color: transparent; }
+.build .timeline li::after {
+  content: ''; position: absolute; left: -2px; top: 0; bottom: 0; width: 2px;
+  background: linear-gradient(var(--gold-hi), rgba(212, 169, 79, .5) 40%);
+  transform-origin: top; scale: 1 0; transition: scale .75s cubic-bezier(.4, 0, .2, 1) var(--d, 0s);
+}
+.build .timeline li::before { scale: 0; transition: scale .5s cubic-bezier(.3, 1.7, .5, 1) calc(var(--d, 0s) + .12s); }
+.build .timeline li.in::after { scale: 1 1; }
+.build .timeline li.in::before { scale: 1; animation: dot-flare 1.3s ease-out calc(var(--d, 0s) + .12s) both; }
+@keyframes dot-flare {
+  0% { box-shadow: 0 0 0 3px rgba(14, 7, 4, 1), 0 0 0 0 rgba(255, 214, 140, .9); }
+  35% { box-shadow: 0 0 0 3px rgba(14, 7, 4, 1), 0 0 18px 7px rgba(255, 214, 140, .55); }
+  100% { box-shadow: 0 0 0 3px rgba(14, 7, 4, 1), 0 0 0 0 rgba(255, 214, 140, 0); }
+}
+.build h3.in, .build h4.in, .build li.in, .build .timeline li.in > * { opacity: 1; translate: 0 0; }
+.build h3.in { letter-spacing: normal; }
+/* Fähigkeiten: die goldenen Punkte füllen sich einzeln */
+.build .dots i.on { background: transparent; scale: .6; transition: background .3s ease, scale .45s cubic-bezier(.3, 1.8, .5, 1); }
+.build .in .dots i.on { background: var(--gold); scale: 1; }
+.build .in .dots i:nth-child(1) { transition-delay: calc(var(--d, 0s) + .35s); }
+.build .in .dots i:nth-child(2) { transition-delay: calc(var(--d, 0s) + .5s); }
+.build .in .dots i:nth-child(3) { transition-delay: calc(var(--d, 0s) + .65s); }
+.build .now, .build .now *, .build .now::before, .build .now::after { transition: none !important; animation: none !important; }
+
+/* ---------------------------------------------------------------- Fun Facts als Exponat-Karten (12.11.2026)
+   Messingnagel oben, „Nº“-Nummer, Papier mit feiner Doppellinie. Die Karte hängt am Nagel (transform-origin dort):
+   beim Hinscrollen wird sie aufgehängt und pendelt aus (.hang/.in aus effects.js hangFacts). Maus: 3D-Neigung + Schimmer. */
+.room-about .fact {
+  padding: 32px 22px 22px;
+  background: radial-gradient(120% 90% at 30% 0%, #fbf3df, #efe0bf 70%, #e6d2a8);
+  box-shadow: inset 0 0 0 5px #f6ecd3, inset 0 0 0 6px rgba(150, 105, 40, .5), 0 14px 26px rgba(0, 0, 0, .5);
+  transform-origin: 50% 12px;
+  transform: perspective(800px) rotateX(var(--tx, 0deg)) rotateY(var(--ty, 0deg));
+  transition: transform .5s cubic-bezier(.2, .8, .2, 1), box-shadow .5s ease;
+}
+.room-about .fact.has-photo { padding-right: 92px; }   /* Platz fürs Polaroid (sonst verdeckt es das Textende) */
+.room-about .fact:hover { box-shadow: inset 0 0 0 5px #f6ecd3, inset 0 0 0 6px rgba(150, 105, 40, .7), 0 22px 36px rgba(0, 0, 0, .55); }
+.room-about .fact::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0; transition: opacity .4s ease;
+  background: radial-gradient(circle at var(--mx, 50%) var(--my, 0%), rgba(255, 244, 210, .7), transparent 50%);
+  mix-blend-mode: soft-light;
+}
+.room-about .fact:hover::after { opacity: 1; }
+.fact-pin {
+  position: absolute; left: 50%; top: 9px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%; z-index: 1;
+  background: radial-gradient(circle at 35% 30%, #fff3c4, #c79a3e 45%, #6a4a14);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, .5), 0 0 0 1px rgba(80, 50, 10, .35);
+}
+.fact-no { position: absolute; left: 22px; top: 11px; font: 500 13px/1 var(--display); letter-spacing: .14em; color: #8a6420; }
+.facts-compact .fact-pin, .facts-compact .fact-no { display: none; }
+.lite .room-about .fact { box-shadow: inset 0 0 0 5px #f6ecd3, inset 0 0 0 6px rgba(150, 105, 40, .5), 0 8px 12px rgba(0, 0, 0, .5); }
+/* Aufhängen: von oben, schräg, dann ausschwingen um den Nagel bis zur eigenen kleinen Schräglage --r */
+.hang .fact { opacity: 0; }
+.hang .fact.in { opacity: 1; animation: fact-hang 1.5s cubic-bezier(.3, .7, .4, 1) var(--d, 0s) both; }
+@keyframes fact-hang {
+  0% { opacity: 0; translate: 0 -26px; rotate: calc(var(--r) - 16deg); }
+  22% { opacity: 1; translate: 0 0; }
+  42% { rotate: calc(var(--r) + 8deg); }
+  62% { rotate: calc(var(--r) - 4deg); }
+  80% { rotate: calc(var(--r) + 1.6deg); }
+  100% { opacity: 1; translate: 0 0; rotate: var(--r); }
+}
+.hang .fact.now, .hang .fact.hung { animation: none; }
+/* Anfassen (effects.js): --sw = Pendelwinkel am Nagel. pan-y: senkrecht wischen scrollt weiter die Seite. */
+.room-about .fact { rotate: calc(var(--r) + var(--sw, 0deg)); touch-action: pan-y; cursor: grab; -webkit-tap-highlight-color: transparent; }
+.room-about .fact.grabbed { cursor: grabbing; user-select: none; -webkit-user-select: none; z-index: 2; }
+
+/* ---------------------------------------------------------------- Ausgang: der Salon schließt (effects.js initExit)
+   --dusk 0…1 je nach Fortschritt im Kontakt-Saal: Ränder werden dunkel wie in der Abenddämmerung. */
+.dusk {
+  position: absolute; inset: 0; opacity: calc(var(--dusk, 0) * .9);
+  background: radial-gradient(ellipse 80% 72% at 50% 45%, transparent 30%, rgba(4, 1, 0, .88) 100%);
+}
+/* Ausgang-Schild: erst aus, dann springt es flackernd an wie eine alte Leuchtröhre und glimmt danach weich */
+.exit-sign.exit-off { background: #0b2f1d; color: rgba(255, 255, 255, .32); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .22); }
+.exit-sign.exit-off .exit-run { opacity: .32; }
+.exit-sign.exit-off.lit {
+  background: #0f6a3c; color: #fff; box-shadow: 0 0 22px rgba(30, 200, 110, .35), inset 0 0 0 2px rgba(255, 255, 255, .85);
+  animation: neon-on 1.4s steps(1, end) both, exit-glow 3.4s ease-in-out 1.4s infinite;
+}
+.exit-sign.exit-off.lit .exit-run { opacity: 1; animation: neon-run 1.4s steps(1, end) both; }
+@keyframes neon-on {
+  0%, 9%, 15%, 30% { background: #0b2f1d; color: rgba(255, 255, 255, .32); box-shadow: inset 0 0 0 2px rgba(255, 255, 255, .22); }
+  8%, 12%, 24%, 34%, 100% { background: #0f6a3c; color: #fff; box-shadow: 0 0 22px rgba(30, 200, 110, .35), inset 0 0 0 2px rgba(255, 255, 255, .85); }
+}
+@keyframes neon-run { 0%, 9%, 15%, 30% { opacity: .32; } 8%, 12%, 24%, 34%, 100% { opacity: 1; } }
+@keyframes exit-glow {
+  0%, 100% { box-shadow: 0 0 22px rgba(30, 200, 110, .35), inset 0 0 0 2px rgba(255, 255, 255, .85); }
+  50% { box-shadow: 0 0 38px rgba(30, 200, 110, .55), inset 0 0 0 2px rgba(255, 255, 255, .9); }
+}
+
+/* ---------------------------------------------------------------- Wow (wow.js, 13.11.2026)
+   Eintrittskarte: abgerissener Abschnitt fällt (Kopie, fixed), die Karte behält einen gezackten Rand + Datumsstempel */
+.ticket-stub {
+  position: fixed; z-index: 1001; pointer-events: none; display: grid; place-items: center;
+  font: 600 10px/1 var(--display); letter-spacing: .1em; text-transform: uppercase; color: var(--ink);
+  background: linear-gradient(180deg, #f6eddb, #ecdfc4); box-shadow: 0 6px 12px rgba(0, 0, 0, .45);
+  -webkit-mask: radial-gradient(circle 7px at 0 100%, #0000 96%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 7px at 100% 100%, #0000 96%, #000) right / 51% 100% no-repeat;
+          mask: radial-gradient(circle 7px at 0 100%, #0000 96%, #000) left / 51% 100% no-repeat,
+                radial-gradient(circle 7px at 100% 100%, #0000 96%, #000) right / 51% 100% no-repeat;
+}
+.ticket.torn { clip-path: polygon(0 26%, 8.33% 30.5%, 16.67% 26%, 25% 30.5%, 33.33% 26%, 41.67% 30.5%, 50% 26%, 58.33% 30.5%, 66.67% 26%, 75% 30.5%, 83.33% 26%, 91.67% 30.5%, 100% 26%, 100% 100%, 0 100%); }
+/* Lacksiegel (wow.js sealCerts): sitzt rechts unten auf der Papierkarte. Ablauf (1,5 s): Messingstempel senkt sich →
+   drückt (Karte gibt 2 px nach) → Lack quillt unter ihm heraus → Stempel hebt ab und verschwindet → Abdruck „FK“ sichtbar */
+.cert { position: relative; }
+.cert .card { position: relative; }
+.seal {
+  position: absolute; right: clamp(14px, 2vw, 30px); bottom: clamp(12px, 1.6vw, 24px); z-index: 3;
+  width: clamp(76px, 7vw, 104px); aspect-ratio: 1; pointer-events: none;
+}
+.seal .wax { display: block; width: 100%; height: 100%; rotate: -7deg; opacity: 0;
+  filter: drop-shadow(0 2px 1.5px rgba(60, 0, 8, .45)) drop-shadow(0 5px 7px rgba(0, 0, 0, .22)); }
+.seal .stamp { position: absolute; left: 0; bottom: 44%; width: 100%; height: auto; opacity: 0;
+  filter: drop-shadow(0 10px 8px rgba(0, 0, 0, .35)); transform-origin: 50% 100%; }
+.cert.stamped .seal .stamp { animation: stempel-druck 1.5s cubic-bezier(.45, 0, .3, 1) forwards; }
+.cert.stamped .seal .wax { animation: lack-quillt .5s cubic-bezier(.2, .9, .3, 1.15) .62s forwards; }
+.cert.stamped .seal .abdruck { opacity: 0; animation: abdruck .35s ease-out 1.02s forwards; }
+.cert.stamped .card { animation: nachgeben .45s ease-out .6s; }
+.cert.stamped-now .seal .wax { animation: none; opacity: 1; }
+.cert.stamped-now .seal .abdruck { animation: none; opacity: 1; }
+.cert.stamped-now .seal .stamp { display: none; }
+.cert.stamped-now .card { animation: none; }
+/* Stempel: von oben herein (leicht schräg) → setzt auf (0,6 s) → drückt nach → hebt ab → weg */
+@keyframes stempel-druck {
+  0% { opacity: 0; translate: 0 -150%; rotate: -6deg; }
+  15% { opacity: 1; }
+  40% { translate: 0 -12%; rotate: -2deg; }
+  42% { translate: 0 0; rotate: 0deg; scale: 1; }
+  52% { translate: 0 3%; scale: 1 .97; }
+  66% { translate: 0 0; scale: 1; opacity: 1; }
+  100% { opacity: 0; translate: 0 -170%; rotate: 4deg; }
+}
+/* schmal: unten rechts liegen die Knöpfe → Siegel auf die obere Kante der Karte (verbindet Karte und Rahmen) */
+@media (max-width: 700px) { .seal { bottom: auto; top: -40px; right: 12px; width: 76px; } }
+@keyframes lack-quillt { 0% { opacity: 1; scale: .35; } 70% { scale: 1.05; } 100% { opacity: 1; scale: 1; } }
+@keyframes abdruck { from { opacity: 0; } to { opacity: 1; } }
+@keyframes nachgeben { 0%, 100% { translate: 0 0; } 30% { translate: 0 2px; } 65% { translate: 0 -.5px; } }
+.lite .seal { filter: none; }
+/* Neigen (Handy, portrait3d.js): die Bilderwand rückt gegen die Neigung, der Schatten davor mit ihr = Tiefe */
+.tilting .foyer > .salon { translate: calc(var(--tilt-x, 0) * -14px) calc(var(--tilt-y, 0) * -9px); }
+.tilting .foyer > .ghost { translate: calc(-50% + var(--tilt-x, 0) * 10px) calc(var(--tilt-y, 0) * 6px); }
+/* Wandleuchten (wow.js hangSconces): neben der Saal-Überschrift, über dem Licht (z-index 2), gehen beim Betreten an */
+.sconce {
+  position: absolute; top: clamp(70px, 11vh, 130px); z-index: 2; width: clamp(44px, 4.4vw, 70px); pointer-events: none;
+}
+.sconce-l { left: clamp(10px, 4vw, 90px); }
+.sconce-r { right: clamp(10px, 4vw, 90px); }
+.sconce svg { position: relative; display: block; width: 100%; height: auto; filter: drop-shadow(0 6px 6px rgba(0, 0, 0, .55)); }
+.sconce .birne { opacity: .28; transition: opacity .2s ease; }
+.sconce .glow {   /* warmer Schein an der Wand, Mitte auf der Glühbirne */
+  position: absolute; left: 50%; top: 18%; width: 520%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 200, 120, .32) 0%, rgba(255, 170, 80, .12) 30%, rgba(255, 150, 60, 0) 62%);
+  opacity: 0; pointer-events: none;
+}
+.sconce.on .birne { opacity: 1; animation: birne-an .9s steps(1, end) both, flamme 3.2s ease-in-out .9s infinite alternate; }
+.sconce.on .glow { animation: schein-an .9s steps(1, end) both, schein 3.2s ease-in-out .9s infinite alternate; }
+@keyframes birne-an { 0%, 14%, 30% { opacity: .28; } 10%, 22%, 40%, 100% { opacity: 1; } }
+@keyframes schein-an { 0%, 14%, 30% { opacity: 0; } 10%, 22% { opacity: .5; } 40%, 100% { opacity: 1; } }
+@keyframes flamme { from { opacity: 1; } to { opacity: .86; } }
+@keyframes schein { from { opacity: 1; } to { opacity: .82; } }
+@media (max-width: 700px) { .sconce { top: 26px; width: 34px; } .sconce .glow { width: 420%; } }
+@media (prefers-reduced-motion: reduce) { .sconce.on .birne, .sconce.on .glow { animation: none; opacity: 1; } }
+.lite .sconce svg { filter: none; }

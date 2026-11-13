@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feliks Kolomoiets · Portfolio</title>
+<meta name="description" content="Feliks (Felix) Kolomoiets, Regensburg: Projekte, Zertifikate, Lebenslauf und Kontakt.">
+<meta name="theme-color" content="#1b111a">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Lavishly+Yours&family=Onest:wght@400;500;600;700&family=Pixelify+Sans:wght@400;500;600;700&display=swap">
+<link rel="preload" as="image" href="/img/sony-dsc01805-photo.jpg">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="./style.css">
+<script>/* Start-Zustand „felix“ nur mit JS und ohne reduzierte Bewegung; sonst bleibt „feliks“ */ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('name-felix');</script>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <canvas class="hero__mosaic" aria-hidden="true"></canvas>
+
+  <p class="corner corner--tl" aria-hidden="true"><span data-t="portfolio">Portfolio</span><br><span data-t="city">Regensburg</span></p>
+
+  <div class="corner corner--tr">
+    <span class="corner__small" data-t="langLabel" aria-hidden="true">Sprache</span>
+    <div class="langs" role="group" aria-label="Sprache / Language / Язык">
+      <button type="button" data-lang="de" aria-pressed="true">DE</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+    </div>
+  </div>
+
+  <p class="corner corner--bl" aria-hidden="true">No-<br><span class="flip-y">001</span></p>
+  <p class="corner corner--bc" aria-hidden="true">@2026</p>
+  <p class="corner corner--br" aria-hidden="true"><span class="flip-xy">@areyoufelya<br>Instagram</span></p>
+
+  <svg class="spark hero__spark" viewBox="0 0 240 60" aria-hidden="true"><use href="#spark"/></svg>
+  <svg class="hero__ring" viewBox="0 0 48 48" aria-hidden="true">
+    <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="2.2"/>
+    <path d="M17 31 L31 17 M20 17 H31 V28" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="square"/>
+  </svg>
+
+  <h1 class="hero__name">
+    <span class="sr-only">Feliks Kolomoiets</span>
+    <span class="name" aria-hidden="true">
+      <span class="name__line name__line--1"><span class="ch s">f</span><span class="ch g">e</span><span class="ch g">l</span><span class="ch p">i</span><span class="ch g ks">k</span><span class="ch s ks">s</span><span class="ch p xx">x</span></span>
+      <span class="name__credits" data-t="credits"></span>
+      <span class="name__line name__line--2"><span class="ch s">k</span><span class="ch g">o</span><span class="ch g">l</span><span class="ch g">o</span><span class="ch p">m</span><span class="ch g">o</span><span class="ch g">i</span><span class="ch p">e</span><span class="ch g">t</span><span class="ch s">s</span></span>
+    </span>
+  </h1>
+</header>
+
+<canvas class="band band--down" aria-hidden="true"></canvas>
+
+<main>
+  <section class="sec sec--about" id="about" aria-labelledby="h-about">
+    <div class="sec__head">
+      <h2 class="mix" id="h-about" data-mix="about"></h2>
+      <span class="sec__mirror" aria-hidden="true" data-t="about"></span>
+    </div>
+    <div class="about">
+      <div class="about__text" data-slot="about"></div>
+      <div class="about__facts">
+        <h3 class="minor" data-t="facts"></h3>
+        <ul class="facts" data-slot="facts"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--projects" id="projects" aria-labelledby="h-projects">
+    <div class="sec__head">
+      <h2 class="mix" id="h-projects" data-mix="projects"></h2>
+      <svg class="spark sec__spark" viewBox="0 0 240 60" aria-hidden="true"><use href="#spark"/></svg>
+    </div>
+    <div class="projects" data-slot="projects"></div>
+  </section>
+
+  <section class="sec sec--certs" id="certificates" aria-labelledby="h-certs">
+    <div class="sec__head">
+      <h2 class="mix" id="h-certs" data-mix="certs"></h2>
+      <span class="sec__mirror" aria-hidden="true" data-t="certs"></span>
+    </div>
+    <div class="certs">
+      <ul class="certs__earned" data-slot="earned"></ul>
+      <div class="certs__progress">
+        <h3 class="minor" data-t="inProgress"></h3>
+        <ul class="progress" data-slot="progress"></ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec--cv" id="cv" aria-labelledby="h-cv">
+    <div class="sec__head">
+      <h2 class="mix" id="h-cv" data-mix="cv"></h2>
+      <span class="sec__mirror" aria-hidden="true" data-t="cv"></span>
+    </div>
+    <div class="cv" data-slot="cv"></div>
+  </section>
+
+  <canvas class="band band--up" aria-hidden="true"></canvas>
+
+  <section class="sec sec--contact" id="contact" aria-labelledby="h-contact">
+    <div class="sec__head">
+      <h2 class="mix" id="h-contact" data-mix="contact"></h2>
+    </div>
+    <div class="contact">
+      <p class="contact__lead" data-t="contactLead"></p>
+      <div class="contact__mail">
+        <a class="contact__addr" data-slot="mail" href="#"></a>
+        <button type="button" class="btn-copy" data-t="copy"></button>
+        <span class="copy-status" role="status" aria-live="polite"></span>
+      </div>
+      <a class="contact__insta" data-slot="insta" href="#" target="_blank" rel="noopener"></a>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  <p class="foot__l" aria-hidden="true">No-<br><span class="flip-y">001</span></p>
+  <div class="foot__langs langs" role="group" aria-label="Sprache / Language / Язык">
+    <button type="button" data-lang="de" aria-pressed="true">DE</button>
+    <button type="button" data-lang="en" aria-pressed="false">EN</button>
+    <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+  </div>
+  <p class="foot__c">@2026 Feliks Kolomoiets</p>
+  <p class="foot__r" aria-hidden="true"><span class="flip-xy" data-t="credits"></span></p>
+</footer>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="spark" viewBox="0 0 240 60">
+      <line x1="0" y1="30" x2="240" y2="30" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M120 4 C122 22 128 28 146 30 C128 32 122 38 120 56 C118 38 112 32 94 30 C112 28 118 22 120 4 Z" fill="none" stroke="currentColor" stroke-width="2"/>
+      <path d="M120 16 C121 26 124 29 132 30 C124 31 121 34 120 44 C119 34 116 31 108 30 C116 29 119 26 120 16 Z" fill="currentColor" opacity=".35"/>
+    </symbol>
+  </defs>
+</svg>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>

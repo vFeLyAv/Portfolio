@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>404 — Feliks Kolomoiets</title>
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#2a0b0c">
+  <meta name="darkreader-lock">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- Fehlerseite im Stil des Salons (13.11.2026, Runde 2: „minimaler, 404 ausdrucksstärker“).
+       Große 404 wie der Name im Foyer; die Null ist ein leerer goldener Ovalrahmen, der an einer Schnur pendelt –
+       hier hing einmal ein Bild. Eigenständig: nur die eigenen Schriften (/fonts), keine Bilder.
+       Cloudflare Pages zeigt diese Datei für jede unbekannte Adresse. -->
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <style>
+    :root { --oxblood: #581719; --gold-hi: #f3dc93; --ivory: #fbf5ea; --display: 'Oswald', 'Arial Narrow', sans-serif; --serif: 'EB Garamond', Georgia, serif; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      min-height: 100svh; display: grid; place-items: center; padding: 32px 16px; overflow: hidden;
+      background: radial-gradient(ellipse 60% 55% at 50% 45%, #6a1d1f 0%, var(--oxblood) 45%, #1c0607 100%);
+      color: var(--ivory); font-family: var(--serif); -webkit-font-smoothing: antialiased; text-align: center;
+    }
+    h1 {
+      margin: 0; display: flex; align-items: center; justify-content: center; gap: .04em;
+      font: 500 clamp(150px, 34vw, 380px)/.82 var(--display); letter-spacing: -.01em;
+      filter: drop-shadow(0 0 14px rgba(255, 238, 205, .5)) drop-shadow(0 0 60px rgba(255, 196, 120, .35));
+    }
+    /* die Null: leerer Goldrahmen (Ring aus Verlauf), hängt an Nagel + Schnur und pendelt langsam */
+    .zero {
+      position: relative; display: block; width: .56em; height: .8em; margin-top: .14em;
+      transform-origin: 50% -.34em; animation: pendeln 5s ease-in-out infinite alternate;
+    }
+    .zero::before {   /* Schnur bis zum Nagel */
+      content: ''; position: absolute; left: 50%; bottom: 100%; width: .012em; height: .3em; translate: -50% 0;
+      background: linear-gradient(rgba(243, 220, 147, .95), rgba(243, 220, 147, .5));
+      clip-path: polygon(50% 0, 100% 100%, 0 100%);
+    }
+    .zero::after {    /* Nagel */
+      content: ''; position: absolute; left: 50%; bottom: calc(100% + .3em); width: .05em; height: .05em; translate: -50% 50%;
+      border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff3c4, #c79a3e 50%, #6a4a14);
+    }
+    .ring {
+      position: absolute; inset: 0; border-radius: 50%; padding: .06em;
+      background: conic-gradient(from 200deg, #fff1b8, #c99a3e, #7c5a1c, #e9cf86, #fff1b8, #a67c2c, #fff1b8);
+      box-shadow: 0 .04em .08em rgba(0, 0, 0, .55);
+    }
+    .ring::after {    /* Innenseite: leere, dunkle Wand mit Schatten vom Rahmen */
+      content: ''; position: absolute; inset: .06em; border-radius: 50%;
+      background: radial-gradient(ellipse at 50% 40%, #3a1a14, #120604 80%); box-shadow: inset 0 0 .06em rgba(0, 0, 0, .9);
+    }
+    p { margin: clamp(26px, 5vh, 44px) 0 0; font: italic clamp(1.3rem, 2.6vw, 1.7rem)/1.3 var(--serif); color: #ecd9b3; }
+    a {
+      display: inline-block; margin-top: 18px; padding: 10px 4px;
+      font: 500 18px/1 var(--display); letter-spacing: .06em; text-transform: uppercase; color: var(--ivory); text-underline-offset: 6px;
+    }
+    a:hover, a:focus-visible { color: var(--gold-hi); }
+    a:focus-visible { outline: 2px solid var(--gold-hi); outline-offset: 4px; }
+    @keyframes pendeln { from { rotate: -3.5deg; } to { rotate: 3.5deg; } }
+    @media (prefers-reduced-motion: reduce) { .zero { animation: none; rotate: -2deg; } }
+  </style>
+</head>
+<body>
+  <main>
+    <h1 aria-label="404"><span aria-hidden="true">4</span><span class="zero" aria-hidden="true"><span class="ring"></span></span><span aria-hidden="true">4</span></h1>
+    <p data-t="line">Dieser Saal ist geschlossen.</p>
+    <a href="/" data-t="back">Zurück zum Eingang</a>
+  </main>
+  <script>
+    // Sprache wie im Salon: gespeicherte Wahl („felix-lang“), sonst Browsersprache, sonst Deutsch
+    (function () {
+      var T = { en: { line: 'This room is closed.', back: 'Back to the entrance' }, ru: { line: 'Этот зал закрыт.', back: 'Назад ко входу' } };
+      var l = null;
+      try { l = localStorage.getItem('felix-lang'); } catch (e) {}
+      if (!l) l = (navigator.language || 'de').slice(0, 2);
+      var t = T[l]; if (!t) return;
+      document.documentElement.lang = l;
+      Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function (el) { el.textContent = t[el.getAttribute('data-t')]; });
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feliks Kolomoiets — Salon</title>
+  <meta name="description" content="Feliks Kolomoiets, Regensburg: Über mich, Projekte, Zertifikate, Lebenslauf und Kontakt.">
+  <meta name="theme-color" content="#2a0b0c">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Great+Vibes&family=Oswald:wght@400;500;600;700&family=Pinyon+Script&display=swap">
+  <link rel="stylesheet" href="/shared/base.css">
+  <link rel="stylesheet" href="./style.css">
+  <script>/* Start-Zustand FELIX nur mit JS und ohne reduzierte Bewegung; sonst bleibt FELIKS */ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('hl-felix');</script>
+  <link rel="preload" as="image" href="/img/sony-dsc02437-photo.jpg">
+</head>
+<body>
+  <div class="lighting" aria-hidden="true"></div>
+
+  <main>
+    <!-- Foyer: die Salonwand -->
+    <section class="room foyer" id="foyer" aria-labelledby="hl">
+      <div class="wainscot" aria-hidden="true"></div>
+      <div class="salon" data-slot="salon"></div>
+
+      <p class="tagline" aria-hidden="true" data-i18n="tagline">Ein Salon in Regensburg</p>
+      <h1 class="headline" id="hl">
+        <span class="sr-only">Feliks Kolomoiets</span>
+        <span class="hl-1" aria-hidden="true"><span class="hl-base">FELI</span><span class="hl-ks">KS</span><span class="hl-x">X</span></span>
+        <span class="hl-2" aria-hidden="true">KOLOMOIETS</span>
+      </h1>
+
+      <img class="ghost" src="/img/depth.png" alt="" aria-hidden="true" width="1214" height="1800">
+      <div class="glare" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+      <p class="signature" aria-hidden="true">Feliks<br>Kolomoiets<span>Regensburg</span></p>
+
+      <div class="admission">
+        <p class="adm-code" data-i18n="ticketCode">FK RGB 2026</p>
+        <p class="adm-free" data-i18n="admission">Eintritt frei</p>
+        <div class="tickets" role="group" data-i18n-label="langGroup" aria-label="Sprache wählen"></div>
+      </div>
+    </section>
+
+    <!-- Saal I -->
+    <section class="room room-about" id="ueber-mich" aria-labelledby="t-about">
+      <div class="room-inner">
+        <header class="room-head">
+          <p class="plaque"><span data-i18n="room">Saal</span> I</p>
+          <h2 id="t-about" data-i18n="rooms.about">Über mich</h2>
+        </header>
+        <div data-slot="about"></div>
+      </div>
+    </section>
+
+    <!-- Saal II -->
+    <section class="room room-projects" id="projekte" aria-labelledby="t-projects">
+      <div class="room-inner">
+        <header class="room-head">
+          <p class="plaque"><span data-i18n="room">Saal</span> II</p>
+          <h2 id="t-projects" data-i18n="rooms.projects">Projekte</h2>
+        </header>
+        <div data-slot="projects"></div>
+      </div>
+    </section>
+
+    <!-- Saal III -->
+    <section class="room room-certs" id="zertifikate" aria-labelledby="t-certs">
+      <div class="room-inner">
+        <header class="room-head">
+          <p class="plaque"><span data-i18n="room">Saal</span> III</p>
+          <h2 id="t-certs" data-i18n="rooms.certs">Zertifikate</h2>
+        </header>
+        <div data-slot="certs"></div>
+      </div>
+    </section>
+
+    <!-- Saal IV: lange Infotafel -->
+    <section class="room room-cv" id="lebenslauf" aria-labelledby="t-cv">
+      <div class="room-inner">
+        <header class="room-head">
+          <p class="plaque"><span data-i18n="room">Saal</span> IV</p>
+          <h2 id="t-cv" data-i18n="rooms.cv">Lebenslauf</h2>
+        </header>
+        <div data-slot="cv"></div>
+      </div>
+    </section>
+
+    <!-- Ausgang: Gästebuch -->
+    <section class="room room-contact" id="kontakt" aria-labelledby="t-contact">
+      <div class="room-inner">
+        <p class="exit-sign" aria-hidden="true"><span class="exit-run"></span><span data-i18n="exit">Ausgang</span></p>
+        <header class="room-head">
+          <h2 id="t-contact" data-i18n="rooms.contact">Kontakt</h2>
+        </header>
+        <div data-slot="contact"></div>
+      </div>
+      <div class="wainscot" aria-hidden="true"></div>
+    </section>
+  </main>
+
+  <dialog class="viewer" aria-labelledby="viewer-title">
+    <div class="viewer-panel">
+      <button class="viewer-close" type="button"><span aria-hidden="true">×</span> <span data-i18n="close">Zurück zur Wand</span></button>
+      <div class="viewer-body" data-slot="viewer"></div>
+    </div>
+  </dialog>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

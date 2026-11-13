@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Feliks Kolomoiets</title>
+<meta name="description" content="Feliks Kolomoiets, Regensburg: Über mich, Projekte, Zertifikate, Lebenslauf und Kontakt.">
+<meta name="theme-color" content="#dcdcda">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- Antonio = schmale fette Plakatschrift (nur Latein). Oswald = gleiche Familie mit Kyrillisch (für RU). Manrope = Kleingedrucktes. -->
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@600;700&family=Oswald:wght@600;700&family=Manrope:wght@500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="stylesheet" href="./style.css">
+<!-- Name startet als FELIX (nur mit JavaScript und ohne „weniger Bewegung“); sonst steht gleich FELIKS da -->
+<script>if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('felix-first');</script>
+<link rel="preload" as="image" href="/img/person.webp">
+</head>
+<body>
+
+<!-- horizontaler Weichzeichner für den „Verschmier“-Übergang FELIX → FELIKS -->
+<svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+  <filter id="smear-x" x="-50%" y="-10%" width="200%" height="120%">
+    <feGaussianBlur id="smear-x-blur" in="SourceGraphic" stdDeviation="0 0"/>
+  </filter>
+</svg>
+
+<main>
+  <!-- ============ HERO: das Plakat ============ -->
+  <header class="hero" id="top">
+    <div class="hero__red" aria-hidden="true"></div>
+
+    <div class="hero__stage" role="img" data-i18n-aria="photoAlt">
+      <img class="hero__fallback" src="/img/person.webp" alt="" width="1214" height="1800" decoding="async">
+      <canvas class="hero__canvas" aria-hidden="true"></canvas>
+    </div>
+
+    <h1 class="hero__name" aria-label="Feliks Kolomoiets">
+      <span class="hero__word hero__word--first" aria-hidden="true">FELI<span class="morph"><span class="morph__ks">KS</span><span class="morph__x">X</span></span></span>
+      <span class="hero__word hero__word--last" aria-hidden="true">KOLOMOIETS</span>
+    </h1>
+
+    <p class="print print--tl" data-bind="dateline"></p>
+
+    <div class="print print--tr lang" role="group" data-i18n-aria="langGroup">
+      <button type="button" data-lang="de" lang="de">Deutsch</button>
+      <button type="button" data-lang="en" lang="en">English</button>
+      <button type="button" data-lang="ru" lang="ru">Русский</button>
+    </div>
+
+    <p class="print print--ml" data-bind="hint"></p>
+    <p class="print print--mr"><a href="https://www.instagram.com/areyoufelya/" target="_blank" rel="noopener">Instagram<br>@areyoufelya</a></p>
+
+    <div class="wrap" aria-hidden="true"></div>
+  </header>
+
+  <!-- ============ ÜBER MICH ============ -->
+  <section class="sheet about" id="about" aria-labelledby="about-h">
+    <h2 class="fit" id="about-h" data-i18n="about"></h2>
+    <div class="about__grid">
+      <div class="about__text" data-bind="aboutText"></div>
+      <figure class="photo about__photo">
+        <div class="photo__red" aria-hidden="true"></div>
+        <img src="/img/hero-img_2183-person.webp" alt="" data-i18n-alt="selfieAlt" width="1280" height="838" loading="lazy" decoding="async">
+      </figure>
+      <div class="about__facts">
+        <h3 class="sub" data-i18n="facts"></h3>
+        <ul class="facts" data-bind="facts"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PROJEKTE ============ -->
+  <section class="sheet projects" id="projects" aria-labelledby="projects-h">
+    <h2 class="fit" id="projects-h" data-i18n="projects"></h2>
+    <div data-bind="projects"></div>
+  </section>
+
+  <!-- ============ ZERTIFIKATE ============ -->
+  <section class="sheet certs" id="certs" aria-labelledby="certs-h">
+    <h2 class="fit" id="certs-h" data-i18n="certs"></h2>
+    <div class="certs__grid" data-bind="certs"></div>
+  </section>
+
+  <!-- ============ LEBENSLAUF ============ -->
+  <section class="sheet cv" id="cv" aria-labelledby="cv-h">
+    <h2 class="fit" id="cv-h" data-i18n="cv"></h2>
+    <div class="cv__grid" data-bind="cv"></div>
+  </section>
+
+  <!-- ============ KONTAKT ============ -->
+  <section class="contact" id="contact" aria-labelledby="contact-h">
+    <figure class="photo contact__photo">
+      <img src="/img/hero-dsc05325-person.webp" alt="" data-i18n-alt="walkAlt" width="542" height="1600" loading="lazy" decoding="async">
+    </figure>
+    <div class="contact__inner">
+      <h2 class="fit fit--light" id="contact-h" data-i18n="contact"></h2>
+      <div class="contact__rows">
+        <div class="contact__row">
+          <p class="contact__label" data-i18n="mailLabel">E-Mail</p>
+          <a class="contact__big" data-bind="mail"></a>
+          <button type="button" class="copy" data-bind="copy"></button>
+          <span class="copy__status sr-only" role="status" aria-live="polite"></span>
+        </div>
+        <div class="contact__row">
+          <p class="contact__label">Instagram</p>
+          <a class="contact__big" href="https://www.instagram.com/areyoufelya/" target="_blank" rel="noopener">@areyoufelya</a>
+        </div>
+      </div>
+      <footer class="foot">
+        <p data-bind="foot">© 2026 Feliks Kolomoiets, Regensburg</p>
+        <div class="lang lang--foot" role="group" data-i18n-aria="langGroup">
+          <button type="button" data-lang="de" lang="de">Deutsch</button>
+          <button type="button" data-lang="en" lang="en">English</button>
+          <button type="button" data-lang="ru" lang="ru">Русский</button>
+        </div>
+      </footer>
+    </div>
+  </section>
+</main>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>

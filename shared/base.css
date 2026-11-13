@@ -1,0 +1,16 @@
+/* Gemeinsame Grundlage für alle Varianten. Farben und Schriften legt jede Variante selbst fest. */
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; -webkit-font-smoothing: antialiased; }
+img, svg, canvas, video { display: block; max-width: 100%; }
+button, input { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .001ms !important; animation-iteration-count: 1 !important; transition-duration: .001ms !important; scroll-behavior: auto !important; }
+}
+
+/* kleine Leiste zum Wechseln zwischen den Varianten (nur für die Auswahlphase) */
+.variant-switch { position: fixed; z-index: 1000; left: 50%; bottom: 14px; transform: translateX(-50%); width: max-content; max-width: calc(100% - 16px); display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(20,20,20,.55); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); border: 1px solid rgba(255,255,255,.18); font: 500 12px/1 system-ui, sans-serif; }
+.variant-switch a { color: #fff; text-decoration: none; padding: 7px 11px; border-radius: 999px; opacity: .75; }
+.variant-switch a:hover, .variant-switch a[aria-current="page"] { opacity: 1; background: rgba(255,255,255,.16); }

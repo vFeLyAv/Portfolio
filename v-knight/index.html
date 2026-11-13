@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feliks Kolomoiets – Lebenslauf</title>
+  <meta name="description" content="Lebenslauf und Projekte von Feliks Kolomoiets, Regensburg.">
+  <meta name="theme-color" content="#d6ccbc">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Yeseva+One&family=Alegreya+SC:wght@500;700&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+  <link rel="preload" as="image" href="/img/sony-dsc01805-person.webp">
+  <link rel="stylesheet" href="/shared/base.css">
+  <link rel="stylesheet" href="./style.css">
+  <!-- Name startet als FELIX (nur mit JavaScript und ohne „weniger Bewegung“); sonst steht gleich FELIKS da -->
+  <script>if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('felix-first');</script>
+</head>
+<body>
+  <!-- Plakat-Kopf: kleine Beschriftung links, Ornament-Kette Mitte, Sprachwahl rechts -->
+  <header class="hero" id="top">
+    <div class="topline">
+      <p class="label topline__left" data-t="poster">Lebenslauf</p>
+      <svg class="chain" data-draw viewBox="0 0 300 24" aria-hidden="true"></svg>
+      <div class="langs" role="group" aria-label="Sprache wählen" data-langs></div>
+    </div>
+
+    <h1 class="name">
+      <span class="sr-only">Feliks Kolomoiets</span>
+      <span class="name__word" aria-hidden="true"><span class="L">F</span><span class="L">E</span><span class="L">L</span><span class="L">I</span><span class="swap"><span class="L L--k">K</span><span class="L L--s">S</span><span class="L L--x">X</span></span></span>
+    </h1>
+
+    <div class="panel" data-panel>
+      <div class="panel__art">
+        <canvas class="panel__bg" aria-hidden="true"></canvas>
+        <img class="panel__felix" src="/img/sony-dsc01805-person.webp" width="1998" height="1590" alt="" data-alt="heroAlt" fetchpriority="high">
+        <canvas class="panel__fg" aria-hidden="true"></canvas>
+      </div>
+      <div class="note note--tl" data-note="0"></div>
+      <div class="note note--br" data-note="2"></div>
+    </div>
+  </header>
+
+  <main id="main"></main>
+
+  <footer class="foot">
+    <div class="foot__row">
+      <p class="label">© 2026 Feliks Kolomoiets</p>
+      <svg class="row-orn" data-draw viewBox="0 0 360 30" aria-hidden="true"></svg>
+      <div class="langs" role="group" aria-label="Sprache wählen" data-langs></div>
+    </div>
+  </footer>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

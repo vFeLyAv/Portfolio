@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Feliks Kolomoiets — Portfolio</title>
+  <meta name="description" content="Feliks Kolomoiets, Regensburg: Über mich, Projekte, Zertifikate, Lebenslauf und Kontakt.">
+  <meta name="theme-color" content="#2a0b0c">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <!-- Link-Vorschau (WhatsApp, Telegram, LinkedIn, …): Adressen müssen absolut sein.
+       Bild = Foyer bei 1200×630 (img/og.jpg); neu machen: Foyer fotografieren, ohne Schatten (.ghost) und Tickets. -->
+  <link rel="canonical" href="https://felya.pages.dev/">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://felya.pages.dev/">
+  <meta property="og:site_name" content="Feliks Kolomoiets">
+  <meta property="og:title" content="Feliks Kolomoiets — Portfolio">
+  <meta property="og:description" content="Über mich, Projekte, Zertifikate und Lebenslauf. Regensburg.">
+  <meta property="og:locale" content="de_DE">
+  <meta property="og:locale:alternate" content="en_US">
+  <meta property="og:locale:alternate" content="ru_RU">
+  <meta property="og:image" content="https://felya.pages.dev/img/og.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:type" content="image/jpeg">
+  <meta property="og:image:alt" content="Salonwand mit goldenen Rahmen, in der Mitte ein Porträt, davor der Name Feliks Kolomoiets">
+  <meta name="twitter:card" content="summary_large_image">
+  <!-- Seite ist schon dunkel: Dark Reader & Co. sollen nicht umfärben (sonst werden die cremefarbenen Karten braun) -->
+  <meta name="darkreader-lock">
+  <!-- Schriften liegen auf dem eigenen Server (keine Verbindung zu Google). Neu holen: _tools/fonts-local.mjs -->
+  <link rel="stylesheet" href="/fonts/fonts.css">
+  <link rel="stylesheet" href="/shared/base.css">
+  <link rel="stylesheet" href="./style.css">
+  <script>/* Start-Zustand FELIX nur mit JS und ohne reduzierte Bewegung; sonst bleibt FELIKS */ if (!matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('hl-felix');</script>
+  <script>/* Leicht-Modus für iPad/iPhone (alle Browser dort = WebKit; iPadOS meldet sich als „Macintosh“, hat aber Touch – auch mit Tastatur/Trackpad) und alle Geräte ohne feine Maus */ (function () { var ios = navigator.maxTouchPoints > 1 && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent); if (ios || !matchMedia('(hover: hover) and (pointer: fine)').matches) document.documentElement.classList.add('lite'); })();</script>
+  <link rel="preload" as="image" href="/img/felix/center-9594.jpg">
+  <script>/* Eingang: Saal dunkel und leicht vergrößert, bis Schriften und Foyer-Bilder bereit sind; dann weich hell + Zoom (main.js).
+     Sicherung: spätestens nach 3,5 s, auch wenn das Skript ausfällt. Bei reduzierter Bewegung kein Eingang. */
+     if (!matchMedia('(prefers-reduced-motion: reduce)').matches) { document.documentElement.classList.add('intro'); setTimeout(function () { var c = document.documentElement.classList; if (c.contains('intro')) c.add('lights-on'); }, 3500); }</script>
+</head>
+<body>
+  <div class="curtain" aria-hidden="true"></div>
+  <a class="skip" href="#ueber-mich" data-i18n="skip">Zum Inhalt springen</a>
+  <div class="lighting" aria-hidden="true"></div>
+
+  <main>
+    <!-- Foyer: die Salonwand -->
+    <section class="room foyer" id="foyer" aria-labelledby="hl">
+      <div class="wainscot" aria-hidden="true"></div>
+      <div class="salon" data-slot="salon"></div>
+
+      <h1 class="headline" id="hl">
+        <span class="sr-only">Feliks Kolomoiets</span>
+        <!-- Klick auf den Vornamen: FELIKS ⇄ FELIX (so wird er gesprochen) -->
+        <button class="hl-btn" type="button" aria-pressed="false" data-i18n-aria="nameBtn" aria-label="Name so zeigen, wie er gesprochen wird: Felix">
+          <span class="hl-1" aria-hidden="true"><span class="hl-base">FELI</span><span class="hl-ks">KS</span><span class="hl-x">X</span></span>
+        </button>
+        <span class="hl-2" aria-hidden="true">KOLOMOIETS</span>
+      </h1>
+
+      <img class="ghost" src="/img/depth.png" alt="" aria-hidden="true" width="1214" height="1800">
+      <div class="glare" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div>
+
+      <div class="admission">
+        <div class="tickets" role="group" data-i18n-label="langGroup" aria-label="Sprache wählen"></div>
+      </div>
+    </section>
+
+    <!-- Saal I -->
+    <section class="room room-about" id="ueber-mich" aria-labelledby="t-about" tabindex="-1">
+      <div class="room-inner">
+        <header class="room-head">
+          <p class="plaque"><span data-i18n="room">Saal</span> I</p>
+          <h2 id="t-about" data-i18n="rooms.about">Über mich</h2>
+        </header>
+        <div data-slot="about"></div>
+      </div>
+      <button class="sleeve sleeve-a" type="button" data-track="1" aria-pressed="false" style="--out:48% 0"><span class="disc" aria-hidden="true"></span><span class="cover" style="--img:url(/img/felix/cover-9865.jpg)"><b>Felya</b><i>Side A</i></span></button>
+      <!-- Grammophon (Plattenspieler aus der Variante Jahreszeiten, neu gezeichnet): wird nach jedem Neuschreiben
+           in „Über mich“ eingesetzt, bleibt aber dasselbe Element, damit die Musik beim Sprachwechsel weiterläuft.
+           Alles (Gehäuse, Trichter, Tonarm) zeichnet salon/deck.js, Variante „gramo“. -->
+      <!-- untouched: die Platte leuchtet leise, bis man sie zum ersten Mal anfasst (statt eines Hinweisschilds) -->
+      <div class="spin untouched" id="spin">
+        <div class="deck deck--case deck--gramo">
+          <canvas class="deck__canvas" aria-hidden="true"></canvas>
+          <button class="deck__record" type="button" aria-pressed="false" data-i18n-aria="deck"
+            aria-label="Schallplatte: Musik an oder aus. Ziehen: scratchen. Pfeiltasten: vor- und zurückdrehen."></button>
+          <button class="deck__start deck__knob" type="button" aria-pressed="false" data-i18n-aria="music" aria-label="Musik"></button>
+        </div>
+        <div class="plinth" aria-hidden="true"></div>
+      </div>
+    </section>
+
+    <!-- Saal II -->
+    <section class="room room-projects" id="projekte" aria-labelledby="t-projects">
+      <div class="room-inner">
+        <header class="room-head">
+          <p class="plaque"><span data-i18n="room">Saal</span> II</p>
+          <h2 id="t-projects" data-i18n="rooms.projects">Projekte</h2>
+        </header>
+        <div data-slot="projects"></div>
+        <div data-slot="studies"></div>
+      </div>
+    </section>
+
+    <!-- Saal III -->
+    <section class="room room-certs" id="zertifikate" aria-labelledby="t-certs">
+      <div class="room-inner">
+        <header class="room-head">
+          <p class="plaque"><span data-i18n="room">Saal</span> III</p>
+          <h2 id="t-certs" data-i18n="rooms.certs">Zertifikate</h2>
+        </header>
+        <div data-slot="certs"></div>
+      </div>
+      <!-- Deko: Plattenhüllen an der Wand, die Platte schaut heraus (nur breite Bildschirme) -->
+      <button class="sleeve sleeve-b" type="button" data-track="2" aria-pressed="false" style="--out:48% 0"><span class="disc" aria-hidden="true"></span><span class="cover" style="--img:url(/img/felix/cover-0200.jpg)"><b>Regensburg</b><i>Sessions</i></span></button>
+
+    </section>
+
+    <!-- Saal IV: lange Infotafel -->
+    <section class="room room-cv" id="lebenslauf" aria-labelledby="t-cv">
+      <div class="room-inner">
+        <header class="room-head">
+          <p class="plaque"><span data-i18n="room">Saal</span> IV</p>
+          <h2 id="t-cv" data-i18n="rooms.cv">Lebenslauf</h2>
+        </header>
+        <div data-slot="cv"></div>
+      </div>
+    </section>
+
+    <!-- Ausgang: Gästebuch -->
+    <section class="room room-contact" id="kontakt" aria-labelledby="t-contact">
+      <div class="room-inner">
+        <p class="exit-sign" aria-hidden="true"><span class="exit-run"></span><span data-i18n="exit">Ausgang</span></p>
+        <header class="room-head">
+          <h2 id="t-contact" data-i18n="rooms.contact">Kontakt</h2>
+        </header>
+        <div data-slot="contact"></div>
+      </div>
+      <button class="sleeve sleeve-c" type="button" data-track="3" aria-pressed="false" style="--out:48% 0"><span class="disc" aria-hidden="true"></span><span class="cover"><b>84 BPM</b><i>Lo-Fi</i></span></button>
+      <div class="wainscot" aria-hidden="true"><p class="foot" data-i18n="foot">Feliks Kolomoiets, Regensburg 2026</p></div>
+    </section>
+  </main>
+
+  <dialog class="viewer" aria-labelledby="viewer-title">
+    <div class="viewer-panel" data-lenis-prevent>
+      <button class="viewer-close" type="button"><span aria-hidden="true">×</span> <span data-i18n="close">Zurück zur Wand</span></button>
+      <div class="viewer-body" data-slot="viewer"></div>
+    </div>
+  </dialog>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

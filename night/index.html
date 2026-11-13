@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link rel="stylesheet" href="/shared/base.css">
+<title>Feliks · Night</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&display=swap">
+<style>
+/* Layout: Desktop zuerst. Foto mittig auf voller Höhe, riesiger Name läuft HINTER der Person durch,
+   Ebenen bewegen sich mit der Maus. Darunter eine ruhige, klare Kurzfassung. */
+:root{
+  --ground:#1f1511;      /* Lederjacke / Nacht */
+  --brick:#5a2a20;       /* Hauswand im Foto */
+  --paper:#f1e7db;       /* Name, Text */
+  --soft:#c9b9a8;        /* Nebentext */
+  --sodium:#ff9b5e;      /* Straßenlicht, nur für Fokus & Links */
+  --hair:rgba(241,231,219,.16);
+  --f:"Geist",system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ground);color:var(--paper);font-family:var(--f);font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--ground)}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--sodium);outline-offset:3px}
+
+/* ---------- Hero ---------- */
+.hero{position:relative;height:100svh;min-height:560px;overflow:hidden;isolation:isolate}
+.ambient{position:absolute;inset:-80px;background:url(/img/ambient.jpg) center/cover;filter:blur(38px) brightness(.48) saturate(1.15);z-index:0}
+.scene{position:absolute;top:0;height:100%;aspect-ratio:1214/1800;left:46%;transform:translateX(-50%)}
+.scene .lay{position:absolute;inset:0;will-change:transform;transform:scale(1.02)}
+.scene img{display:block;width:100%;height:100%;object-fit:cover;max-width:none}
+.scene.back{z-index:1}
+.scene.back img{filter:blur(16px) brightness(.85);-webkit-mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%);mask-image:linear-gradient(90deg,transparent 0,#000 9%,#000 91%,transparent 100%)}
+.lt{transform-box:fill-box;transform-origin:50% 100%}
+.mark.wave .lt{animation:wave .8s calc(var(--i) * 70ms) cubic-bezier(.3,0,.2,1)}
+@keyframes wave{40%{transform:translateY(-7%) scaleY(1.04)}}
+#sPath{transform-box:fill-box;transform-origin:0% 50%}
+.scene.front{z-index:3;pointer-events:none}
+
+.nameLayer{position:absolute;z-index:2;left:max(4vw,16px);top:52%;width:min(86vw,150svh);will-change:transform}
+.mark{all:unset;display:block;width:100%;cursor:pointer;color:var(--paper);-webkit-tap-highlight-color:transparent}
+.mark:focus-visible{outline:2px solid var(--sodium);outline-offset:8px}
+.mark svg{display:block;width:100%;height:auto;overflow:visible}
+.name{margin:0;font:inherit}
+
+.top{position:absolute;z-index:5;left:0;right:0;top:0;display:flex;justify-content:space-between;align-items:center;gap:16px;padding-top:calc(env(safe-area-inset-top,0px) + 18px);padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px))}
+.brand{font-weight:500;font-size:15px;letter-spacing:.01em}
+.glass{background:linear-gradient(160deg,rgba(255,255,255,.16),rgba(255,255,255,.05) 55%,rgba(255,255,255,.1));-webkit-backdrop-filter:blur(18px) saturate(1.6);backdrop-filter:blur(18px) saturate(1.6);border:1px solid rgba(255,255,255,.22);box-shadow:inset 0 1px 0 rgba(255,255,255,.35),inset 0 -1px 0 rgba(255,255,255,.06),0 12px 34px rgba(0,0,0,.35)}
+.pill{display:flex;align-items:center;gap:4px;padding:5px;border-radius:999px}
+.pill a,.pill button{all:unset;cursor:pointer;font:500 14px/1 var(--f);padding:10px 16px;border-radius:999px;color:var(--paper);transition:background .2s}
+.pill a:hover,.pill button:hover{background:rgba(255,255,255,.1)}
+.pill .solid{background:var(--paper);color:var(--ground)}
+.pill .solid:hover{background:#fff}
+.pill a:focus-visible,.pill button:focus-visible{outline:2px solid var(--sodium);outline-offset:2px}
+
+.foot{position:absolute;z-index:5;left:0;right:0;bottom:0;display:flex;justify-content:space-between;align-items:flex-end;padding-bottom:calc(env(safe-area-inset-bottom,0px) + 22px);padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));pointer-events:none}
+.caption{font-size:13px;color:var(--soft)}
+.down{pointer-events:auto;width:48px;height:48px;border-radius:50%;display:grid;place-items:center;color:var(--paper)}
+.down svg{width:18px;height:18px}
+
+.grain{position:fixed;inset:0;z-index:8;pointer-events:none;opacity:.09;mix-blend-mode:overlay;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* Hochformat / Handy */
+@media (max-aspect-ratio: 4/5), (max-width: 700px){
+  .scene{left:0;right:0;width:100%;transform:none;aspect-ratio:auto}
+  .scene.back img{-webkit-mask-image:none;mask-image:none}
+  .nameLayer{left:max(16px,env(safe-area-inset-left,0px));right:max(16px,env(safe-area-inset-right,0px));width:auto;top:28%}
+  .top{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .brand{display:none}
+  .top{justify-content:flex-end}
+  .foot{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+}
+
+/* ---------- Kurzfassung ---------- */
+.cv{padding-block:96px 120px;padding-left:max(24px,env(safe-area-inset-left,0px));padding-right:max(24px,env(safe-area-inset-right,0px));background:linear-gradient(var(--ground),#1a110e)}
+.cv-in{max-width:1120px;margin:0 auto;display:grid;grid-template-columns:minmax(0,300px) minmax(0,1fr);gap:48px}
+.cv h2{margin:0;font-size:clamp(34px,4vw,52px);line-height:1.05;font-weight:600;letter-spacing:-.02em;text-wrap:balance}
+.cv .intro{margin:14px 0 0;color:var(--soft);max-width:30ch}
+.groups{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:40px 48px}
+.group h3{margin:0 0 14px;font-size:15px;font-weight:600;color:var(--sodium)}
+.group dl{margin:0;display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px 18px}
+.group dt{color:var(--soft);font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap;padding-top:1px}
+.group dd{margin:0;font-size:15.5px}
+.group dd span{display:block;color:var(--soft);font-size:14px}
+.group.wide{grid-column:1/-1}
+.langs{display:flex;flex-wrap:wrap;gap:8px 28px;margin:0;padding:0;list-style:none;font-size:15.5px}
+.langs b{font-weight:500}
+.langs span{color:var(--soft)}
+@media (max-width:860px){.cv-in{grid-template-columns:minmax(0,1fr);gap:32px}.groups{grid-template-columns:minmax(0,1fr)}.cv{padding-block:64px 88px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}}
+
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translate(-50%,16px);opacity:0;transition:opacity .3s,transform .3s;z-index:20;pointer-events:none;padding:12px 18px;border-radius:999px;font-size:14px;color:var(--paper);max-width:calc(100% - 32px)}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important;animation:none!important}html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+
+<div class="grain" aria-hidden="true"></div>
+
+<main>
+  <section class="hero" id="hero" aria-label="Start">
+    <div class="ambient" aria-hidden="true"></div>
+    <div class="scene back"><div class="lay" id="layBg"><img src="/img/bg.jpg" alt=""></div></div>
+
+    <div class="nameLayer" id="layName">
+      <h1 class="name">
+        <button class="mark" id="mark" type="button" aria-pressed="false" aria-label="Feliks Kolomoiets. Klicken verwandelt Feliks in Felix.">
+          <svg viewBox="0 0 412 100" aria-hidden="true">
+            <defs>
+              <clipPath id="clipK"><rect x="260" y="0" width="76" height="100"/></clipPath>
+              <clipPath id="clipS"><rect x="340" y="-4" width="80" height="108"/></clipPath>
+            </defs>
+            <g fill="currentColor">
+              <g class="lt" style="--i:0"><rect x="0" y="0" width="24" height="100"/><rect x="0" y="0" width="64" height="22"/><rect x="0" y="41" width="54" height="20"/></g>
+              <g class="lt" style="--i:1"><rect x="76" y="0" width="24" height="100"/><rect x="76" y="0" width="64" height="22"/><rect x="76" y="40" width="56" height="20"/><rect x="76" y="78" width="64" height="22"/></g>
+              <g class="lt" style="--i:2"><rect x="152" y="0" width="24" height="100"/><rect x="152" y="78" width="60" height="22"/></g>
+              <g class="lt" style="--i:3"><rect x="224" y="0" width="24" height="100"/></g>
+              <g class="lt" style="--i:4">
+                <rect id="kStem" x="260" y="0" width="24" height="100"/>
+                <g clip-path="url(#clipK)" stroke="currentColor" stroke-width="27"><line id="d1"/><line id="d2"/></g>
+              </g>
+            </g>
+            <g class="lt" style="--i:5" clip-path="url(#clipS)">
+              <path id="sPath" fill="none" stroke="currentColor" stroke-width="22" d="M406 18 C398 9 388 11 378 11 C362 11 359 20 359 29 C359 42 368 46 380 50 C394 54 401 59 401 71 C401 83 392 89 378 89 C366 89 358 85 350 76"/>
+            </g>
+          </svg>
+        </button>
+      </h1>
+    </div>
+
+    <div class="scene front"><div class="lay" id="layPerson"><img src="/img/person.webp" alt="Feliks in einer Lederjacke, nachts auf einer Straße in Regensburg"></div></div>
+
+    <header class="top">
+      <span class="brand">Feliks Kolomoiets</span>
+      <nav class="pill glass" aria-label="Hauptmenü">
+        <a href="#lebenslauf">Lebenslauf</a>
+        <button class="solid" type="button" data-act="pdf">PDF</button>
+      </nav>
+    </header>
+
+    <div class="foot">
+      <span class="caption">Regensburg, November 2026</span>
+      <a class="down glass" href="#lebenslauf" aria-label="Zum Lebenslauf"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></a>
+    </div>
+  </section>
+
+  <section class="cv" id="lebenslauf" aria-labelledby="cvTitle">
+    <div class="cv-in">
+      <div>
+        <h2 id="cvTitle">Lebenslauf</h2>
+        <p class="intro">Das Wichtigste auf einen Blick. Das vollständige PDF kommt als Nächstes.</p>
+      </div>
+      <div class="groups">
+        <div class="group">
+          <h3>Schule</h3>
+          <dl>
+            <dt>seit 09/2026</dt><dd>Fachoberschule Regensburg<span>Technik, 11. Klasse, Fachabitur 2028</span></dd>
+            <dt>2022 – 2026</dt><dd>Angrüner-Mittelschule Bad Abbach<span>Mittlerer Schulabschluss 2026, Quali 2025 mit 1,9</span></dd>
+            <dt>2015 – 2025</dt><dd>Schule in der Ukraine<span>ab 2022 parallel online</span></dd>
+          </dl>
+        </div>
+        <div class="group">
+          <h3>Praxis</h3>
+          <dl>
+            <dt>seit 09/2026</dt><dd>Eckert Schulen, Regenstauf<span>Fachpraktische Ausbildung: Metall, Elektro, Bau, CNC</span></dd>
+            <dt>11/2024</dt><dd>Maschinenfabrik Reinhausen<span>Praktikum Metall, Elektro, IT</span></dd>
+            <dt>04/2024</dt><dd>Krones Academy<span>Praktikum Anwendungsentwicklung</span></dd>
+          </dl>
+        </div>
+        <div class="group">
+          <h3>Projekte</h3>
+          <dl>
+            <dt>2026</dt><dd>Bunprise<span>Web-App: Kalender mit Freunden und Wunschlisten, gebaut mit KI-Tools</span></dd>
+            <dt>2026</dt><dd>Diese Website<span>Design, Bildebenen und Code</span></dd>
+            <dt>2022 – 2024</dt><dd>Minecraft-Server<span>Mit-Leitung, Konfiguration, Level-Design</span></dd>
+          </dl>
+        </div>
+        <div class="group">
+          <h3>Interessen</h3>
+          <dl>
+            <dt>Sport</dt><dd>Krafttraining<span>seit ca. 4 Jahren</span></dd>
+            <dt>Tech</dt><dd>Programmieren mit KI</dd>
+            <dt>Kreativ</dt><dd>Fotografie, Video, 3D<span>Blender und Photoshop</span></dd>
+          </dl>
+        </div>
+        <div class="group wide">
+          <h3>Sprachen</h3>
+          <ul class="langs">
+            <li><b>Russisch</b> <span>Muttersprache</span></li>
+            <li><b>Ukrainisch</b> <span>fließend</span></li>
+            <li><b>Deutsch</b> <span>fließend</span></li>
+            <li><b>Englisch</b> <span>gut</span></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div class="toast glass" id="toast" role="status"></div>
+
+<script>
+(()=>{
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const $ = s => document.querySelector(s);
+const lerp = (a, b, t) => a + (b - a) * t;
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+
+/* ---------- K → X, S zieht sich zusammen und verschwimmt ---------- */
+const mark = $('#mark'), stem = $('#kStem'), d1 = $('#d1'), d2 = $('#d2'), sPath = $('#sPath');
+const OX = 260;
+// [x1,y1,x2,y2] in Buchstaben-Koordinaten: K-Diagonalen → X-Diagonalen
+const D1 = { k: [20, 50, 88, -16], x: [-12, 116, 88, -16] };
+const D2 = { k: [20, 50, 88, 116], x: [-12, -16, 88, 116] };
+function setLine(el, a, b, t){
+  el.setAttribute('x1', OX + lerp(a[0], b[0], t)); el.setAttribute('y1', lerp(a[1], b[1], t));
+  el.setAttribute('x2', OX + lerp(a[2], b[2], t)); el.setAttribute('y2', lerp(a[3], b[3], t));
+}
+let state = 0;
+function render(t){
+  t = Math.min(1, Math.max(0, t));
+  const e = ease(t);
+  setLine(d1, D1.k, D1.x, e); setLine(d2, D2.k, D2.x, e);
+  const sh = 1 - Math.min(1, e * 1.6);
+  stem.setAttribute('height', 100 * sh); stem.setAttribute('y', 50 * (1 - sh));
+  stem.setAttribute('x', OX - 8 * e);
+  const se = Math.min(1, e * 1.25);
+  sPath.style.transform = `translateX(${-14 * se}px) scaleX(${Math.max(.001, 1 - se)})`;
+  sPath.style.opacity = 1 - se;
+  sPath.style.filter = se > 0 ? `blur(${(se * 5).toFixed(2)}px)` : '';
+  state = t;
+}
+let anim = 0;
+function go(target){
+  cancelAnimationFrame(anim);
+  if (reduce) { render(target); return; }
+  const from = state, dur = 1100 * Math.abs(target - from) + 1;
+  let t0 = 0;
+  const step = now => {
+    if (!t0) t0 = now;
+    const k = Math.min(1, Math.max(0, (now - t0) / dur));
+    render(lerp(from, target, k));
+    if (k < 1) anim = requestAnimationFrame(step);
+  };
+  anim = requestAnimationFrame(step);
+}
+let felix = false, touched = false;
+function toggle(v){
+  felix = v; go(v ? 1 : 0);
+  if (!reduce) { mark.classList.remove('wave'); void mark.getBoundingClientRect(); mark.classList.add('wave'); }
+  mark.setAttribute('aria-pressed', String(v));
+  mark.setAttribute('aria-label', v ? 'Felix Kolomoiets. Klicken zeigt wieder Feliks.' : 'Feliks Kolomoiets. Klicken verwandelt Feliks in Felix.');
+}
+render(0);
+mark.addEventListener('click', () => { touched = true; toggle(!felix); });
+
+/* ---------- Parallax mit der Maus (nur Desktop) ---------- */
+const layBg = $('#layBg'), layName = $('#layName'), layPerson = $('#layPerson');
+const fine = matchMedia('(hover: hover) and (pointer: fine)').matches;
+if (fine && !reduce) {
+  let tx = 0, ty = 0, cx = 0, cy = 0, running = false;
+  const loop = () => {
+    cx += (tx - cx) * .07; cy += (ty - cy) * .07;
+    layBg.style.transform = `translate3d(${cx * -7}px,${cy * -4}px,0) scale(1.02)`;
+    layName.style.transform = `translate3d(${cx * -16}px,${cy * -8}px,0)`;
+    layPerson.style.transform = `translate3d(${cx * -24}px,${cy * -10}px,0) scale(1.02)`;
+    if (Math.abs(tx - cx) + Math.abs(ty - cy) > .001) requestAnimationFrame(loop); else running = false;
+  };
+  addEventListener('pointermove', e => {
+    tx = e.clientX / innerWidth - .5; ty = e.clientY / innerHeight - .5;
+    if (!running) { running = true; requestAnimationFrame(loop); }
+  }, { passive: true });
+}
+
+/* ---------- PDF-Knopf ---------- */
+const toastEl = $('#toast'); let tt = 0;
+document.addEventListener('click', e => {
+  if (!e.target.closest('[data-act="pdf"]')) return;
+  toastEl.textContent = 'Das PDF bauen wir im nächsten Schritt.';
+  toastEl.classList.add('show'); clearTimeout(tt); tt = setTimeout(() => toastEl.classList.remove('show'), 2600);
+});
+
+/* Einmal von selbst zeigen, was der Name kann */
+const imgs = [...document.querySelectorAll('.scene img')];
+Promise.all(imgs.map(i => i.complete ? 0 : new Promise(r => { i.onload = i.onerror = r; }))).then(() => {
+  setTimeout(() => { if (!touched) toggle(true); }, reduce ? 0 : 1500);
+});
+})();
+</script>
+
+<script type="module">import { addSwitch } from '/shared/switch.js'; addSwitch('night');</script>
+</body>
+</html>

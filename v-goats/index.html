@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <script>document.documentElement.classList.add('js')</script>
+  <title>Feliks Kolomoiets</title>
+  <meta name="description" content="Feliks (Felix) Kolomoiets, Regensburg: Projekte, Zertifikate und Lebenslauf.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&family=Neucha&family=Oswald:wght@600;700&family=PT+Mono&family=Pangolin&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap">
+  <link rel="stylesheet" href="/shared/base.css">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="preload" as="image" href="/img/hero-dsc05325-person.webp">
+  <link rel="icon" href="data:,">
+</head>
+<body>
+  <!-- SVG-Filter: raue Sprühkante für Überschriften, Körnung für den Stern -->
+  <svg class="defs" width="0" height="0" aria-hidden="true" focusable="false">
+    <filter id="spray-s" x="-5%" y="-10%" width="110%" height="120%" color-interpolation-filters="sRGB">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="2" seed="2" result="n"/>
+      <feDisplacementMap in="SourceGraphic" in2="n" scale="4" xChannelSelector="R" yChannelSelector="G" result="rough"/>
+      <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="halo"/>
+      <feComponentTransfer in="halo" result="mist"><feFuncA type="linear" slope="0.22"/></feComponentTransfer>
+      <feMerge><feMergeNode in="mist"/><feMergeNode in="rough"/></feMerge>
+    </filter>
+    <filter id="grainy" x="0" y="0" width="100%" height="100%">
+      <feTurbulence type="fractalNoise" baseFrequency="1.4" numOctaves="1" seed="5" result="g"/>
+      <feColorMatrix in="g" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.4 1.25" result="ga"/>
+      <feComposite in="SourceGraphic" in2="ga" operator="in"/>
+    </filter>
+    <symbol id="star" viewBox="-50 -50 100 100">
+      <path d="M0 -50 L8 -16 L38 -36 L18 -6 L50 2 L17 10 L32 40 L4 20 L-6 50 L-11 17 L-40 34 L-20 6 L-50 -4 L-17 -12 L-33 -42 L-7 -18 Z"/>
+    </symbol>
+  </svg>
+
+  <header class="hero" id="top">
+    <div class="lang" role="group" aria-label="Sprache">
+      <button type="button" data-lang="de" aria-pressed="true">DE</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+    </div>
+
+    <p class="tags" aria-hidden="true">
+      <span class="tag tag--hand" data-t="tag1">kannst du</span>
+      <span class="tag tag--caps" data-t="tag2">SCHARF STELLEN</span>
+      <span class="tag tag--hand tag--behind" data-t="tag3">wer das ist?</span>
+    </p>
+
+    <h1 class="name" id="name">
+      <span class="sr-only">Feliks (Felix) Kolomoiets</span>
+      <span class="name__layer name__layer--blur" aria-hidden="true"><span class="ink">FELI<span class="ks">KS</span><span class="x">X</span></span></span>
+      <canvas class="name__spray" aria-hidden="true"></canvas>
+      <span class="name__layer name__layer--mid" aria-hidden="true"><span class="ink">FELI<span class="ks">KS</span><span class="x">X</span></span></span>
+      <span class="name__layer name__layer--sharp" aria-hidden="true"><span class="ink">FELI<span class="ks">KS</span><span class="x">X</span></span></span>
+      <span class="name__layer name__layer--intro" aria-hidden="true"><span class="ink">FELI<span class="ks">KS</span><span class="x">X</span></span></span>
+    </h1>
+
+    <a class="qr" href="https://felya.pages.dev" aria-label="felya.pages.dev">
+      <span class="qr__cap" aria-hidden="true"><span data-t="scan">scann mich</span><span>felya.pages.dev</span></span>
+      <span class="qr__code" id="qr"></span>
+    </a>
+
+    <div class="meadow" aria-hidden="true">
+      <div class="layer layer--field"><canvas class="meadow__field" id="field"></canvas><div class="meadow__mist"></div></div>
+      <div class="layer layer--wins">
+        <div class="win win--a" data-seed="11"><img src="/img/sony-dsc05763-person.webp" alt="" decoding="async"></div>
+        <div class="win win--b" data-seed="23"><img src="/img/hero-img_2183-person.webp" alt="" decoding="async"></div>
+        <div class="win win--c" data-seed="37"><img src="/img/sony-dsc05257-person.webp" alt="" decoding="async"></div>
+        <div class="frag frag--1" data-seed="41"></div>
+        <div class="frag frag--2" data-seed="53"></div>
+      </div>
+      <div class="layer layer--felix"><img class="felix" src="/img/hero-dsc05325-person.webp" alt="" decoding="async"></div>
+      <div class="layer layer--front"><canvas class="meadow__front" id="front"></canvas></div>
+    </div>
+
+    <figure class="quote">
+      <figcaption class="quote__head" id="qHead"></figcaption>
+      <blockquote class="quote__text" id="qText"></blockquote>
+      <p class="quote__foot">@areyoufelya</p>
+    </figure>
+
+    <svg class="star star--hero1" aria-hidden="true"><use href="#star"/></svg>
+    <svg class="star star--hero2" aria-hidden="true"><use href="#star"/></svg>
+  </header>
+
+  <main id="main">
+    <section class="sec about" id="about" aria-labelledby="h-about">
+      <h2 class="big" id="h-about" data-t="about">Über mich</h2>
+      <div class="about__text" id="aboutText"></div>
+      <div class="facts">
+        <div class="facts__bg" data-seed="61" data-pad="1" aria-hidden="true"></div>
+        <h3 class="facts__head" data-t="facts">Fun Facts</h3>
+        <ul class="facts__list" id="factsList"></ul>
+      </div>
+    </section>
+
+    <section class="sec projects" id="projects" aria-labelledby="h-projects">
+      <h2 class="big" id="h-projects" data-t="projects">Projekte</h2>
+      <div class="projects__list" id="projectList"></div>
+    </section>
+
+    <section class="sec certs" id="certs" aria-labelledby="h-certs">
+      <h2 class="big" id="h-certs" data-t="certs">Zertifikate</h2>
+      <div class="certs__earned" id="certsEarned"></div>
+      <ul class="certs__planned" id="certsPlanned"></ul>
+    </section>
+
+    <section class="sec cv" id="cv" aria-labelledby="h-cv">
+      <h2 class="big" id="h-cv" data-t="cv">Lebenslauf</h2>
+      <div class="cv__grid">
+        <div class="cv__col"><h3 class="hand" data-t="school">Schule</h3><ol class="tl" id="school"></ol></div>
+        <div class="cv__col"><h3 class="hand" data-t="practice">Praxis</h3><ol class="tl" id="practice"></ol></div>
+      </div>
+      <div class="cv__grid cv__grid--3">
+        <div class="cv__col"><h3 class="hand" data-t="skills">Kenntnisse</h3><div id="skills"></div></div>
+        <div class="cv__col"><h3 class="hand" data-t="languages">Sprachen</h3><ul class="plain" id="languages"></ul></div>
+        <div class="cv__col"><h3 class="hand" data-t="documents">Dokumente</h3><ul class="plain" id="documents"></ul></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="contact" id="contact">
+    <div class="contact__paper">
+      <h2 class="big" id="h-contact" data-t="contact">Kontakt</h2>
+      <p class="hand contact__lead" data-t="contactLead">Schreib mir</p>
+      <div class="contact__mail">
+        <a class="mail" id="mail" href="mailto:felikskolomoiets@gmail.com">felikskolomoiets@gmail.com</a>
+        <button type="button" class="copy" id="copy" data-t="copy">E-Mail kopieren</button>
+        <span class="copy__status" id="copyStatus" role="status" aria-live="polite"></span>
+      </div>
+      <a class="insta" id="insta" href="https://www.instagram.com/areyoufelya/" rel="noopener" target="_blank">Instagram <span>@areyoufelya</span></a>
+    </div>
+    <div class="contact__meadow" aria-hidden="true">
+      <canvas class="meadow__field" id="field2"></canvas>
+      <div class="meadow__mist"></div>
+      <div class="frag frag--3" data-seed="71"></div>
+      <img class="felix2" src="/img/sony-dsc01805-person.webp" alt="" loading="lazy" decoding="async">
+      <svg class="star star--foot" aria-hidden="true"><use href="#star"/></svg>
+    </div>
+  </footer>
+
+  <script type="module" src="./main.js"></script>
+</body>
+</html>

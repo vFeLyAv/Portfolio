@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#3A0A14">
+<link rel="icon" href="data:,">
+<title>Feliks · Vinyl</title>
+<link rel="stylesheet" href="/shared/base.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Schibsted+Grotesk:wght@400..700&display=swap">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<a class="skip" href="#ueber-mich">Zum Inhalt springen</a>
+
+<header class="top" id="topBar">
+  <button class="menu-btn" id="menuBtn" type="button" aria-expanded="false" aria-controls="mainNav">Menü</button>
+  <nav class="nav" id="mainNav" aria-label="Abschnitte">
+    <a href="#ueber-mich">Über mich</a>
+    <a href="#lebenslauf">Lebenslauf</a>
+    <a href="#projekte">Projekte</a>
+    <a href="#zertifikate">Zertifikate</a>
+    <a href="#kontakt">Kontakt</a>
+  </nav>
+  <button class="glass-btn pdf" type="button" data-pdf>Lebenslauf (PDF)</button>
+</header>
+
+<main>
+  <section class="hero" id="top" aria-label="Start">
+    <div class="cover" id="cover">
+      <div class="cover__bg" aria-hidden="true"></div>
+      <h1 class="cover__name"><span class="first">Feliks</span> <span class="last">Kolomoiets</span></h1>
+      <img class="cover__person" src="/img/person.webp" width="1214" height="1800" alt="Feliks Kolomoiets, Porträt bei Nacht in Regensburg" fetchpriority="high">
+      <div class="cover__grain" aria-hidden="true"></div>
+    </div>
+
+    <div class="deck-slot" id="deckSlot">
+      <div class="deck" id="deck">
+        <canvas class="deck__canvas" id="deckCanvas" aria-hidden="true"></canvas>
+        <button class="deck__record" id="record" type="button"
+          aria-label="Schallplatte. Klicken oder Eingabetaste: abspielen oder anhalten. Ziehen: scratchen. Pfeiltasten: vor- und zurückdrehen."></button>
+        <button class="deck__start" id="startBtn" type="button" aria-pressed="false">
+          <span class="led" aria-hidden="true"></span><span class="lbl">Start</span>
+        </button>
+        <p class="deck__hint" id="hint" role="status" aria-live="polite"></p>
+      </div>
+      <div class="deck__below">
+        <span class="file-name" id="fileName" hidden></span>
+        <button class="text-btn" id="fileReset" type="button" hidden>Originale Platte</button>
+        <label class="text-btn file-btn">
+          <input class="sr-only" id="fileInput" type="file" accept="audio/*">
+          Eigene Musik laden
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <div class="album">
+    <section class="sec" id="ueber-mich" aria-labelledby="h-about">
+      <div class="sec__aside"><p class="term">Liner Notes</p></div>
+      <div class="sec__main liner">
+        <h2 id="h-about">Über mich</h2>
+        <div id="aboutCopy"></div>
+      </div>
+    </section>
+
+    <section class="sec" id="lebenslauf" aria-labelledby="h-cv">
+      <div class="sec__aside">
+        <div class="side"><span class="side__letter" aria-hidden="true">A</span><p class="term">Seite A</p></div>
+      </div>
+      <div class="sec__main">
+        <h2 id="h-cv">Lebenslauf</h2>
+        <h3 class="group">Schule</h3>
+        <ol class="tracks" id="listSchool"></ol>
+        <h3 class="group">Praxis</h3>
+        <ol class="tracks" id="listPractice"></ol>
+      </div>
+    </section>
+
+    <section class="sec" id="seite-b" aria-label="Projekte und Zertifikate">
+      <div class="sec__aside">
+        <div class="side"><span class="side__letter" aria-hidden="true">B</span><p class="term">Seite B</p></div>
+      </div>
+      <div class="sec__main">
+        <h2 id="projekte">Projekte</h2>
+        <ol class="tracks" id="listProjects"></ol>
+        <h2 id="zertifikate" class="h2-next">Zertifikate</h2>
+        <ol class="tracks" id="listCerts"></ol>
+      </div>
+    </section>
+
+    <section class="sec" id="credits" aria-labelledby="h-credits">
+      <div class="sec__aside"><p class="term">Credits</p></div>
+      <div class="sec__main">
+        <h2 id="h-credits">Sprachen und Interessen</h2>
+        <div class="credits">
+          <div>
+            <h3 class="group">Sprachen</h3>
+            <ul class="credit-list" id="listLang"></ul>
+          </div>
+          <div>
+            <h3 class="group">Interessen</h3>
+            <ul class="credit-list" id="listInterests"></ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="sec sec--last" id="kontakt" aria-labelledby="h-contact">
+      <div class="sec__aside"><p class="term">Auf Wiederhören</p></div>
+      <div class="sec__main">
+        <h2 id="h-contact">Kontakt</h2>
+        <p class="contact-copy" id="contactCopy"></p>
+        <button class="glass-btn glass-btn--big" type="button" data-pdf>Lebenslauf (PDF)</button>
+      </div>
+    </section>
+
+    <footer class="foot">
+      <p id="footName"></p>
+      <p>Die Musik auf der Platte wird direkt im Browser erzeugt. Eigene Musik wird nur auf diesem Gerät abgespielt, nichts wird hochgeladen.</p>
+    </footer>
+  </div>
+</main>
+
+<div class="mini" id="mini" hidden>
+  <button class="mini__btn" id="miniBtn" type="button">
+    <canvas class="mini__disc" id="miniCanvas" width="80" height="80" aria-hidden="true"></canvas>
+    <span class="mini__lbl">Musik stoppen</span>
+  </button>
+</div>
+
+<p class="toast" id="toast" role="status" aria-live="polite"></p>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>

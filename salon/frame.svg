@@ -1,0 +1,92 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 120 120" width="120" height="120">
+  <!-- Vergoldeter Bilderrahmen fuer border-image (slice 40). Jede Seite hat ihr eigenes Licht (oben hell, unten dunkel). -->
+  <defs>
+    <linearGradient id="torus" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#4a300a"/>
+      <stop offset=".28" stop-color="#f7e39a"/>
+      <stop offset=".52" stop-color="#cf9f42"/>
+      <stop offset=".82" stop-color="#7a5214"/>
+      <stop offset="1" stop-color="#3d2606"/>
+    </linearGradient>
+    <radialGradient id="bead" cx=".36" cy=".32" r=".75">
+      <stop offset="0" stop-color="#fff4c4"/>
+      <stop offset=".35" stop-color="#e2b85a"/>
+      <stop offset=".8" stop-color="#8a5e18"/>
+      <stop offset="1" stop-color="#4a3008"/>
+    </radialGradient>
+    <linearGradient id="cove" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#3e2807"/>
+      <stop offset="1" stop-color="#b78a35"/>
+    </linearGradient>
+    <linearGradient id="leaf" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fbe7a1"/>
+      <stop offset=".5" stop-color="#c89a3e"/>
+      <stop offset="1" stop-color="#6d4810"/>
+    </linearGradient>
+    <linearGradient id="sight" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff0b8"/>
+      <stop offset="1" stop-color="#8b6520"/>
+    </linearGradient>
+    <radialGradient id="ros" cx=".38" cy=".35" r=".7">
+      <stop offset="0" stop-color="#fff3c0"/>
+      <stop offset=".4" stop-color="#d7ab4c"/>
+      <stop offset=".85" stop-color="#7b5313"/>
+      <stop offset="1" stop-color="#3a2405"/>
+    </radialGradient>
+    <clipPath id="mitre"><polygon points="0,0 120,0 80,40 40,40"/></clipPath>
+
+    <g id="edge">
+      <rect x="0" y="0" width="120" height="3" fill="#2a1806"/>
+      <rect x="0" y="3" width="120" height="11" fill="url(#torus)"/>
+      <rect x="0" y="14" width="120" height="2" fill="#3a2508"/>
+      <rect x="0" y="16" width="120" height="6" fill="#6a4813"/>
+      <g fill="url(#bead)">
+        <circle cx="4" cy="19" r="2.8"/><circle cx="12" cy="19" r="2.8"/><circle cx="20" cy="19" r="2.8"/>
+        <circle cx="28" cy="19" r="2.8"/><circle cx="36" cy="19" r="2.8"/><circle cx="44" cy="19" r="2.8"/>
+        <circle cx="52" cy="19" r="2.8"/><circle cx="60" cy="19" r="2.8"/><circle cx="68" cy="19" r="2.8"/>
+        <circle cx="76" cy="19" r="2.8"/><circle cx="84" cy="19" r="2.8"/><circle cx="92" cy="19" r="2.8"/>
+        <circle cx="100" cy="19" r="2.8"/><circle cx="108" cy="19" r="2.8"/><circle cx="116" cy="19" r="2.8"/>
+      </g>
+      <rect x="0" y="22" width="120" height="1.5" fill="#2e1d06"/>
+      <rect x="0" y="23.5" width="120" height="10.5" fill="url(#cove)"/>
+      <g fill="url(#leaf)" stroke="#4a3008" stroke-width=".6">
+        <ellipse cx="5" cy="28.8" rx="3.3" ry="4.4"/><ellipse cx="15" cy="28.8" rx="3.3" ry="4.4"/>
+        <ellipse cx="25" cy="28.8" rx="3.3" ry="4.4"/><ellipse cx="35" cy="28.8" rx="3.3" ry="4.4"/>
+        <ellipse cx="45" cy="28.8" rx="3.3" ry="4.4"/><ellipse cx="55" cy="28.8" rx="3.3" ry="4.4"/>
+        <ellipse cx="65" cy="28.8" rx="3.3" ry="4.4"/><ellipse cx="75" cy="28.8" rx="3.3" ry="4.4"/>
+        <ellipse cx="85" cy="28.8" rx="3.3" ry="4.4"/><ellipse cx="95" cy="28.8" rx="3.3" ry="4.4"/>
+        <ellipse cx="105" cy="28.8" rx="3.3" ry="4.4"/><ellipse cx="115" cy="28.8" rx="3.3" ry="4.4"/>
+      </g>
+      <g stroke="#f0d488" stroke-width=".9" stroke-linecap="round">
+        <path d="M0 25.5V32M10 25.5V32M20 25.5V32M30 25.5V32M40 25.5V32M50 25.5V32M60 25.5V32M70 25.5V32M80 25.5V32M90 25.5V32M100 25.5V32M110 25.5V32M120 25.5V32"/>
+      </g>
+      <rect x="0" y="34" width="120" height="3" fill="url(#sight)"/>
+      <rect x="0" y="37" width="120" height="3" fill="#1a0f03"/>
+    </g>
+
+    <g id="rosette">
+      <circle r="12.5" fill="url(#ros)" stroke="#3a2405" stroke-width=".8"/>
+      <g fill="url(#leaf)" stroke="#5a3a0a" stroke-width=".5">
+        <ellipse cx="0" cy="-6.4" rx="2.6" ry="5"/>
+        <ellipse cx="0" cy="-6.4" rx="2.6" ry="5" transform="rotate(45)"/>
+        <ellipse cx="0" cy="-6.4" rx="2.6" ry="5" transform="rotate(90)"/>
+        <ellipse cx="0" cy="-6.4" rx="2.6" ry="5" transform="rotate(135)"/>
+        <ellipse cx="0" cy="-6.4" rx="2.6" ry="5" transform="rotate(180)"/>
+        <ellipse cx="0" cy="-6.4" rx="2.6" ry="5" transform="rotate(225)"/>
+        <ellipse cx="0" cy="-6.4" rx="2.6" ry="5" transform="rotate(270)"/>
+        <ellipse cx="0" cy="-6.4" rx="2.6" ry="5" transform="rotate(315)"/>
+      </g>
+      <circle r="3.4" fill="url(#bead)" stroke="#4a3008" stroke-width=".5"/>
+    </g>
+  </defs>
+
+  <g clip-path="url(#mitre)"><use href="#edge" xlink:href="#edge"/><rect width="120" height="40" fill="#fff" opacity=".1"/></g>
+  <g transform="rotate(90 60 60)"><g clip-path="url(#mitre)"><use href="#edge" xlink:href="#edge"/><rect width="120" height="40" fill="#000" opacity=".14"/></g></g>
+  <g transform="rotate(180 60 60)"><g clip-path="url(#mitre)"><use href="#edge" xlink:href="#edge"/><rect width="120" height="40" fill="#000" opacity=".34"/></g></g>
+  <g transform="rotate(270 60 60)"><g clip-path="url(#mitre)"><use href="#edge" xlink:href="#edge"/><rect width="120" height="40" fill="#fff" opacity=".03"/></g></g>
+
+  <use href="#rosette" xlink:href="#rosette" transform="translate(20 20)"/>
+  <use href="#rosette" xlink:href="#rosette" transform="translate(100 20)"/>
+  <use href="#rosette" xlink:href="#rosette" transform="translate(20 100)"/>
+  <use href="#rosette" xlink:href="#rosette" transform="translate(100 100)"/>
+</svg>

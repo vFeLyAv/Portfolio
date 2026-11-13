@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Feliks Kolomoiets</title>
+  <meta name="description" content="Feliks (Felix) Kolomoiets: Lebenslauf, Projekte und Zertifikate.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Great+Vibes&family=Marck+Script&family=Poiret+One&family=Montserrat:wght@300;400;500;600;700&display=swap">
+  <link rel="preload" as="image" href="/img/sony-dsc01805-photo.jpg">
+  <link rel="stylesheet" href="/shared/base.css">
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+
+<!-- ============ HERO: das Poster ============ -->
+<header class="hero" id="top">
+  <div class="hero-photo" data-par="photo">
+    <img src="/img/sony-dsc01805-photo.jpg" alt="" data-i18n-alt="heroAlt" width="1800" height="1200" fetchpriority="high">
+  </div>
+
+  <!-- feine Eck-Klammern oben links -->
+  <svg class="brackets" viewBox="0 0 240 150" aria-hidden="true">
+    <path d="M14 140 V14 H226" />
+    <path d="M24 128 V24 H214" />
+    <path d="M34 116 V34 H202" />
+    <path class="spark" d="M226 6 l2.2 5.8 5.8 2.2 -5.8 2.2 -2.2 5.8 -2.2 -5.8 -5.8 -2.2 5.8 -2.2z" />
+    <path class="spark" d="M14 132 l1.8 4.6 4.6 1.8 -4.6 1.8 -1.8 4.6 -1.8 -4.6 -4.6 -1.8 4.6 -1.8z" />
+  </svg>
+
+  <div class="dots" aria-hidden="true"></div>
+
+  <svg class="rings" viewBox="0 0 200 260" aria-hidden="true">
+    <g fill="none">
+      <path d="M0 10 A120 120 0 0 1 0 250" /><path d="M0 24 A106 106 0 0 1 0 236" />
+      <path d="M0 38 A92 92 0 0 1 0 222" /><path d="M0 52 A78 78 0 0 1 0 208" />
+      <path d="M0 66 A64 64 0 0 1 0 194" /><path d="M0 80 A50 50 0 0 1 0 180" />
+    </g>
+  </svg>
+
+  <!-- vertikale Schreibschrift -->
+  <p class="script-line" aria-hidden="true">
+    <span class="script" data-i18n="script">Freunde sagen Felya</span>
+    <span class="script-sub">@areyoufelya</span>
+  </p>
+
+  <!-- der Buchstaben-Stapel -->
+  <h1 class="sr-only">Feliks (Felix) Kolomoiets</h1>
+  <div class="stack" aria-hidden="true"></div>
+
+  <div class="surname" aria-hidden="true" data-par="surname"></div>
+
+  <!-- kleines Einsatzfoto unten links -->
+  <figure class="inset" data-par="inset">
+    <img src="/img/sony-dsc02437-photo.jpg" alt="" data-i18n-alt="insetAlt">
+  </figure>
+
+  <p class="caption" aria-hidden="true">
+    <span data-i18n="city1">Dnipro</span>
+    <span><svg class="cap-heart" viewBox="0 0 40 36"><path d="M20 33 C4 22 1 14 3 8 C5 2 13 0 20 8 C27 0 35 2 37 8 C39 14 36 22 20 33Z"/></svg><span data-i18n="city2">Regensburg</span></span>
+  </p>
+
+  <!-- Pill-Tags: echte Bedienelemente -->
+  <div class="tags">
+    <div class="lang" role="group" aria-label="Sprache" data-i18n-aria="langLabel">
+      <button type="button" data-lang="de" aria-pressed="true">DE</button>
+      <button type="button" data-lang="en" aria-pressed="false">EN</button>
+      <button type="button" data-lang="ru" aria-pressed="false">RU</button>
+    </div>
+    <ul class="jumps">
+      <li><a href="#about" data-i18n="nav.about">Über mich</a></li>
+      <li><a href="#projects" data-i18n="nav.projects">Projekte</a></li>
+      <li><a href="#certs" data-i18n="nav.certs">Zertifikate</a></li>
+      <li><a href="#cv" data-i18n="nav.cv">Lebenslauf</a></li>
+      <li><a href="#contact" data-i18n="nav.contact">Kontakt</a></li>
+    </ul>
+  </div>
+
+  <!-- große Funkel-Sterne -->
+  <svg class="sparkle sparkle-big" viewBox="0 0 100 100" aria-hidden="true" data-par="spark"><path d="M50 0 C53 34 66 47 100 50 C66 53 53 66 50 100 C47 66 34 53 0 50 C34 47 47 34 50 0Z"/></svg>
+  <svg class="sparkle sparkle-small" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0 C53 34 66 47 100 50 C66 53 53 66 50 100 C47 66 34 53 0 50 C34 47 47 34 50 0Z"/></svg>
+  <svg class="spark-lines" viewBox="0 0 120 200" aria-hidden="true">
+    <path d="M30 40 V200 M60 10 V200 M90 60 V200"/>
+    <path class="f" d="M30 30 l3 10 -3 10 -3 -10z M60 0 l3 10 -3 10 -3 -10z M90 50 l3 10 -3 10 -3 -10z"/>
+  </svg>
+
+  <!-- Anhänger -->
+  <span class="charm charm-heart" aria-hidden="true">
+    <svg viewBox="0 0 160 90">
+      <defs>
+        <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#F3DC9A"/><stop offset=".45" stop-color="#C9A14A"/><stop offset="1" stop-color="#7A5A22"/>
+        </linearGradient>
+        <radialGradient id="enamel" cx=".4" cy=".35" r=".7">
+          <stop offset="0" stop-color="#FFF8EC"/><stop offset="1" stop-color="#E9DCC6"/>
+        </radialGradient>
+      </defs>
+      <path d="M4 44 L150 44" stroke="#B08A3C" stroke-width="4" stroke-linecap="round"/>
+      <path d="M4 44 l14 -9 v18z" fill="#B08A3C"/>
+      <path d="M140 44 l-10 -10 h12 l10 10 -10 10 h-12z" fill="#8C6A2C"/>
+      <path d="M80 82 C46 62 40 46 44 32 C48 18 66 14 80 30 C94 14 112 18 116 32 C120 46 114 62 80 82Z" fill="url(#gold)" stroke="#6B4C1C" stroke-width="1.5"/>
+      <path d="M80 72 C56 58 52 47 55 37 C58 28 70 25 80 37 C90 25 102 28 105 37 C108 47 104 58 80 72Z" fill="url(#enamel)"/>
+      <circle cx="80" cy="46" r="6" fill="#B5473A"/><circle cx="73" cy="44" r="3.2" fill="#C9675A"/><circle cx="87" cy="44" r="3.2" fill="#C9675A"/>
+      <path d="M70 52 q6 -2 8 -6 M90 52 q-6 -2 -8 -6" stroke="#5F6A3A" stroke-width="2" fill="none" stroke-linecap="round"/>
+    </svg>
+  </span>
+  <span class="charm charm-star" aria-hidden="true">
+    <svg viewBox="0 0 100 100">
+      <path d="M50 4 L61 37 L96 38 L68 58 L79 93 L50 72 L21 93 L32 58 L4 38 L39 37Z" fill="url(#gold)" stroke="#6B4C1C" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M50 4 L50 72 M4 38 L68 58 M96 38 L32 58" stroke="#FFF3C8" stroke-width="1.4" opacity=".55"/>
+    </svg>
+  </span>
+</header>
+
+<main>
+  <!-- ============ ÜBER MICH ============ -->
+  <section class="sec about" id="about" aria-labelledby="h-about">
+    <div class="sec-head">
+      <h2 class="title" id="h-about" data-i18n="nav.about">Über mich</h2>
+    </div>
+    <div class="about-grid">
+      <figure class="about-photo">
+        <img src="/img/sony-dsc05763-person.webp" alt="" data-i18n-alt="aboutAlt" loading="lazy">
+        <svg class="sparkle about-spark" viewBox="0 0 100 100" aria-hidden="true"><path d="M50 0 C53 34 66 47 100 50 C66 53 53 66 50 100 C47 66 34 53 0 50 C34 47 47 34 50 0Z"/></svg>
+      </figure>
+      <div class="about-text" data-slot="about"></div>
+    </div>
+    <h3 class="sub" data-i18n="facts">Fun Facts</h3>
+    <ul class="facts" data-slot="facts"></ul>
+  </section>
+
+  <!-- ============ PROJEKTE ============ -->
+  <section class="sec projects" id="projects" aria-labelledby="h-projects">
+    <div class="sec-head">
+      <h2 class="title" id="h-projects" data-i18n="nav.projects">Projekte</h2>
+    </div>
+    <div data-slot="projects"></div>
+  </section>
+
+  <!-- ============ ZERTIFIKATE ============ -->
+  <section class="sec certs" id="certs" aria-labelledby="h-certs">
+    <div class="sec-head">
+      <h2 class="title" id="h-certs" data-i18n="nav.certs">Zertifikate</h2>
+    </div>
+    <div class="cert-earned" data-slot="certsEarned"></div>
+    <h3 class="sub" data-i18n="inProgress">In Arbeit</h3>
+    <ul class="cert-planned" data-slot="certsPlanned"></ul>
+  </section>
+
+  <!-- ============ LEBENSLAUF ============ -->
+  <section class="sec cv" id="cv" aria-labelledby="h-cv">
+    <div class="sec-head">
+      <h2 class="title" id="h-cv" data-i18n="nav.cv">Lebenslauf</h2>
+    </div>
+    <div class="cv-grid">
+      <div class="cv-col">
+        <h3 class="sub" data-i18n="school">Schule</h3>
+        <ol class="timeline" data-slot="school"></ol>
+        <h3 class="sub" data-i18n="practice">Praxis</h3>
+        <ol class="timeline" data-slot="practice"></ol>
+      </div>
+      <div class="cv-col">
+        <h3 class="sub" data-i18n="skills">Kenntnisse</h3>
+        <div data-slot="skills"></div>
+        <h3 class="sub" data-i18n="languages">Sprachen</h3>
+        <ul class="langs" data-slot="languages"></ul>
+        <h3 class="sub" data-i18n="documents">Dokumente</h3>
+        <ul class="docs" data-slot="documents"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ KONTAKT ============ -->
+  <section class="sec contact" id="contact" aria-labelledby="h-contact">
+    <svg class="rings rings-contact" viewBox="0 0 200 260" aria-hidden="true">
+      <g fill="none">
+        <path d="M0 10 A120 120 0 0 1 0 250" /><path d="M0 24 A106 106 0 0 1 0 236" />
+        <path d="M0 38 A92 92 0 0 1 0 222" /><path d="M0 52 A78 78 0 0 1 0 208" />
+        <path d="M0 66 A64 64 0 0 1 0 194" />
+      </g>
+    </svg>
+    <div class="sec-head">
+      <h2 class="title" id="h-contact" data-i18n="nav.contact">Kontakt</h2>
+    </div>
+    <div class="contact-body">
+      <p class="contact-label" data-i18n="email">E-Mail</p>
+      <p class="mail-row">
+        <a class="mail" data-slot="mail" href="mailto:"></a>
+        <button type="button" class="pill pill-solid copy" data-i18n="copy">Kopieren</button>
+        <span class="copied" role="status" aria-live="polite"></span>
+      </p>
+      <p class="contact-label">Instagram</p>
+      <p><a class="insta" data-slot="insta" href="#" target="_blank" rel="noopener"></a></p>
+      <p class="signoff" aria-hidden="true">Felya</p>
+    </div>
+    <p class="foot"><a href="#top" class="pill" data-i18n="top">Nach oben</a></p>
+  </section>
+</main>
+
+<script type="module" src="./main.js"></script>
+</body>
+</html>
